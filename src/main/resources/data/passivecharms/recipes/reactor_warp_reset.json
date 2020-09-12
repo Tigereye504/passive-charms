@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "O"
+    ],
+    "key": {
+        "O": {
+            "item": "passivecharms:contingency_charm_reaction_warp"
+        }
+    },
+    "result": {
+        "item": "passivecharms:contingency_charm_reaction_warp",
+        "count": 1
+    },
+    "group": "passive_charm"
+}

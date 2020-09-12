@@ -20,6 +20,11 @@
   "entrypoints": {
     "main": [
       "net.tigereye.passivecharms.PassiveCharms"
+    ],
+    "client": [
+      {
+        "value": "net.tigereye.passivecharms.PassiveCharms"
+      }
     ]
   },
   "mixins": [
