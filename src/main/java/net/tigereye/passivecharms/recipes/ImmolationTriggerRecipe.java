@@ -11,11 +11,8 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.tigereye.passivecharms.items.ContingencyCharm;
-import net.tigereye.passivecharms.items.contingency_reactors.ContingencyCharmReaction;
-import net.tigereye.passivecharms.items.contingency_triggers.ContingencyCharmTrigger;
-import net.tigereye.passivecharms.registration.PC_Items;
-import net.tigereye.passivecharms.registration.PC_Recipes;
+import net.tigereye.passivecharms.registration.PCItems;
+import net.tigereye.passivecharms.registration.PCRecipes;
 
 import java.util.List;
 
@@ -71,7 +68,7 @@ public class ImmolationTriggerRecipe extends SpecialCraftingRecipe {
     }
 
     public ItemStack craft(CraftingInventory inv) {
-        return new ItemStack(PC_Items.IMMOLATION_TRIGGER);
+        return new ItemStack(PCItems.IMMOLATION_TRIGGER);
     }
 
     public boolean fits(int width, int height) {
@@ -79,7 +76,7 @@ public class ImmolationTriggerRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return PC_Recipes.IMMOLATION_TRIGGER;
+        return PCRecipes.IMMOLATION_TRIGGER;
     }
 
     private boolean containsFireResistance(ItemStack itemStack){

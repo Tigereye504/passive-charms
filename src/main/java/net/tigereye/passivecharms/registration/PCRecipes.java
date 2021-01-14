@@ -3,6 +3,7 @@ package net.tigereye.passivecharms.registration;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.registry.Registry;
+import net.tigereye.passivecharms.items.IndustryCharm;
 import net.tigereye.passivecharms.items.contingency_reactors.Featherfall;
 import net.tigereye.passivecharms.items.contingency_triggers.Drowning;
 import net.tigereye.passivecharms.items.contingency_triggers.Freefall;
@@ -12,7 +13,7 @@ import net.tigereye.passivecharms.recipes.*;
 
 import java.util.function.Function;
 
-public class PC_Recipes {
+public class PCRecipes {
     public static SpecialRecipeSerializer<ContingencyCharmRecipe> CONTINGENCY_CHARM;
     public static SpecialRecipeSerializer<FeatherfallReactorRecipe> FEATHERFALL_REACTOR;
     public static SpecialRecipeSerializer<FlamewardReactorRecipe> FLAMEWARD_REACTOR;
@@ -24,6 +25,8 @@ public class PC_Recipes {
     public static SpecialRecipeSerializer<ImmolationTriggerRecipe> IMMOLATION_TRIGGER;
     public static SpecialRecipeSerializer<InjuryTriggerRecipe> INJURY_TRIGGER;
     public static SpecialRecipeSerializer<LightInjuryTriggerRecipe> LIGHT_INJURY_TRIGGER;
+    public static SpecialRecipeSerializer<IndustryCharmRecipe> INDUSTRY_CHARM;
+    public static SpecialRecipeSerializer<IndustryCharmReloadRecipe> INDUSTRY_CHARM_RELOAD;
 
     public static void register(){
         CONTINGENCY_CHARM = (SpecialRecipeSerializer<ContingencyCharmRecipe>) Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_contingency_charm", new SpecialRecipeSerializer<ContingencyCharmRecipe>(ContingencyCharmRecipe::new));
@@ -37,6 +40,8 @@ public class PC_Recipes {
         IMMOLATION_TRIGGER = (SpecialRecipeSerializer<ImmolationTriggerRecipe>) Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_immolation_trigger", new SpecialRecipeSerializer<ImmolationTriggerRecipe>(ImmolationTriggerRecipe::new));
         INJURY_TRIGGER = (SpecialRecipeSerializer<InjuryTriggerRecipe>) Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_injury_trigger", new SpecialRecipeSerializer<InjuryTriggerRecipe>(InjuryTriggerRecipe::new));
         LIGHT_INJURY_TRIGGER = (SpecialRecipeSerializer<LightInjuryTriggerRecipe>) Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_light_injury_trigger", new SpecialRecipeSerializer<LightInjuryTriggerRecipe>(LightInjuryTriggerRecipe::new));
+        INDUSTRY_CHARM = (SpecialRecipeSerializer<IndustryCharmRecipe>) Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_industry_charm", new SpecialRecipeSerializer<IndustryCharmRecipe>(IndustryCharmRecipe::new));
+        INDUSTRY_CHARM_RELOAD = (SpecialRecipeSerializer<IndustryCharmReloadRecipe>) Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_industry_charm_reload", new SpecialRecipeSerializer<IndustryCharmReloadRecipe>(IndustryCharmReloadRecipe::new));
 
     }
     

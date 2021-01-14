@@ -6,9 +6,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
-import net.tigereye.passivecharms.registration.PC_Items;
+import net.tigereye.passivecharms.PassiveCharms;
+import net.tigereye.passivecharms.registration.PCItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.Inventory;
+import net.tigereye.passivecharms.util.InventoryTickContext;
+import net.tigereye.passivecharms.util.InventoryUtil;
 
 import java.util.Random;
 
@@ -25,34 +28,40 @@ public class MaintenanceCharm extends Item{
 	}
     
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if(!world.isClient()){
-            if(stack.getTag() == null){
-                stack.setTag(new CompoundTag());
-            }
-            int mendingTimer = stack.getTag().getInt("mendingTimer"); //load mendingTimer
+	    super.inventoryTick(stack,world,entity,slot,selected);
+        if(!world.isClient() && world.getTime() % 20 == 0){
+            int mendingTimer = stack.getOrCreateTag().getInt("mendingTimer"); //load mendingTimer
             mendingTimer++;
-            if(mendingTimer >= 20*SECONDS_TO_RECOVER){
-                System.out.println("Restoring the Charm");
+            if(mendingTimer >= SECONDS_TO_RECOVER){
                 stack.setDamage(Math.max(stack.getDamage()-USES_PER_RECOVER,0));
-                mendingTimer = 0;
+                stack.getTag().putInt("mendingTimer", 0);
             }
-            else if(entity instanceof ServerPlayerEntity && mendingTimer >= 20*SECONDS_BETWEEN_REPAIR && stack.getDamage() < (stack.getMaxDamage()-1)){
-                Inventory inv = ((ServerPlayerEntity)entity).inventory;
-                ItemStack invItem;
+            else if(entity instanceof ServerPlayerEntity && mendingTimer >= SECONDS_BETWEEN_REPAIR && stack.getDamage() < (stack.getMaxDamage()-1)){
+                InventoryTickContext context = new InventoryTickContext(((ServerPlayerEntity)entity).inventory,stack,world,entity,slot,selected);
                 int lastRepair = stack.getTag().getInt("lastRepair");
-                for(int i = 1; i <= inv.size(); i++){
-                    invItem = inv.getStack((lastRepair + i) % inv.size());
-                    if(invItem.getDamage() != 0 && invItem.getItem() != PC_Items.MAINTENANCE_CHARM){
-                        System.out.println("Repairing "+invItem.getItem().getName().asString()+" in Slot "+((lastRepair + i) % inv.size())+"\n");
-                        invItem.setDamage(Math.max(invItem.getDamage()-1,0));
-                        stack.damage(1, new Random(), ((ServerPlayerEntity)entity));
-                        stack.getTag().putInt("lastRepair",(lastRepair + i) % inv.size());
-                        stack.getTag().putInt("mendingTimer",0); //mendingTimer = 0
-                        return;
-                    }
+                int slotToRepair = InventoryUtil.findTargetableInventoryItemStack(context,this::repairableItemCondition,lastRepair+1);
+                if(slotToRepair != -1){
+                    repairItem(context,slotToRepair);
                 }
             }
-            stack.getTag().putInt("mendingTimer",mendingTimer); //save changes to timer
+            else {
+                stack.getTag().putInt("mendingTimer", mendingTimer);
+            }
         }
+    }
+
+    protected boolean repairableItemCondition(InventoryTickContext context, Integer slot){
+        ItemStack invItem = context.inventory.getStack(slot);
+        return (invItem.getDamage() != 0 && invItem.getItem() != PCItems.MAINTENANCE_CHARM);
+    }
+
+    protected void repairItem(InventoryTickContext context, Integer slot){
+        ItemStack invItem = context.inventory.getStack(slot);
+        int lastRepair = context.stack.getOrCreateTag().getInt("lastRepair");
+        PassiveCharms.LOGGER.info("Repairing " + "in Slot " + slot + "\n");
+        invItem.setDamage(Math.max(invItem.getDamage() - 1, 0));
+        context.stack.damage(1, new Random(), ((ServerPlayerEntity) context.entity));
+        context.stack.getTag().putInt("lastRepair", slot);
+        context.stack.getTag().putInt("mendingTimer", 0);
     }
 }

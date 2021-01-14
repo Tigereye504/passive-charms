@@ -9,8 +9,8 @@ import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.ContingencyCharm;
 import net.tigereye.passivecharms.items.contingency_reactors.ContingencyCharmReaction;
 import net.tigereye.passivecharms.items.contingency_triggers.ContingencyCharmTrigger;
-import net.tigereye.passivecharms.registration.PC_Items;
-import net.tigereye.passivecharms.registration.PC_Recipes;
+import net.tigereye.passivecharms.registration.PCItems;
+import net.tigereye.passivecharms.registration.PCRecipes;
 
 public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
 
@@ -68,7 +68,7 @@ public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
             }
         }
         if(reactor != null && trigger != null){
-            ItemStack output = new ItemStack(PC_Items.CONTINGENCY_CHARM);
+            ItemStack output = new ItemStack(PCItems.CONTINGENCY_CHARM);
             ContingencyCharm.saveContingencyToNBT(output, trigger, reactor);
             return output;
         }
@@ -80,7 +80,7 @@ public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return PC_Recipes.CONTINGENCY_CHARM;
+        return PCRecipes.CONTINGENCY_CHARM;
     }
 
 

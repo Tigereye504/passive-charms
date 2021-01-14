@@ -17,9 +17,9 @@ import net.tigereye.passivecharms.registration.PCRecipes;
 
 import java.util.List;
 
-public class InjuryTriggerRecipe extends SpecialCraftingRecipe {
+public class IndustryCharmRecipe extends SpecialCraftingRecipe {
 
-    public InjuryTriggerRecipe(Identifier id) {
+    public IndustryCharmRecipe(Identifier id) {
         super(id);
     }
 
@@ -28,34 +28,15 @@ public class InjuryTriggerRecipe extends SpecialCraftingRecipe {
             for(int i = 0; i < craftingInventory.getWidth(); ++i) {
                 for(int j = 0; j < craftingInventory.getHeight(); ++j) {
                     ItemStack itemStack = craftingInventory.getStack(i + j * craftingInventory.getWidth());
+                    Item item = itemStack.getItem();
                     if(i == 1 && j == 1){
-                        if (!itemStack.isEmpty()) {
-                            //System.out.println("Immolation Recipe Failed at ("+i+","+j+"); slot should be empty");
+                        if (item != Items.FURNACE) {
                             return false;
                         }
                     }
-                    else if((i == 0 && j == 1) || (i == 2 && j == 1) || (i == 1 && j == 2) || (i == 1 && j == 0)){
-                        if (itemStack.isEmpty()) {
-                            //System.out.println("Immolation Recipe Failed at ("+i+","+j+"); slot is empty");
-                            return false;
-                        }
-                        Item item = itemStack.getItem();
-                        if (item != Items.LINGERING_POTION) {
-                            //System.out.println("Immolation Recipe Failed at ("+i+","+j+"); not Lingering Potion");
-                            return false;
-                        }
-                        if (!containsPotionEffect(itemStack,StatusEffects.INSTANT_HEALTH)){
-                            //System.out.println("Immolation Recipe Failed at ("+i+","+j+"); not Fire Resistance");
-                            return false;
-                        }
-                    }
-                    else if((i == 0 && j == 0) || (i == 0 && j == 2) || (i == 2 && j == 0) || (i == 2 && j == 2)){
-                        if (itemStack.isEmpty()) {
-                            //System.out.println("Immolation Recipe Failed at ("+i+","+j+"); slot is empty");
-                            return false;
-                        }
-                        if (itemStack.getItem() != Items.GOLD_INGOT) {
-                            //System.out.println("Immolation Recipe Failed at ("+i+","+j+"); not Gold Ingot");
+                    else if((i == 0 && j == 1) || (i == 2 && j == 1) || (i == 1 && j == 2) || (i == 1 && j == 0)
+                        || (i == 0 && j == 0) || (i == 0 && j == 2) || (i == 2 && j == 0) || (i == 2 && j == 2)){
+                        if (item != Items.GOLD_INGOT) {
                             return false;
                         }
                     }
@@ -69,7 +50,9 @@ public class InjuryTriggerRecipe extends SpecialCraftingRecipe {
     }
 
     public ItemStack craft(CraftingInventory inv) {
-        return new ItemStack(PCItems.INJURY_TRIGGER);
+        ItemStack output = new ItemStack(PCItems.INDUSTRY_CHARM);
+        output.setDamage(output.getMaxDamage());
+        return output;
     }
 
     public boolean fits(int width, int height) {
@@ -77,7 +60,7 @@ public class InjuryTriggerRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return PCRecipes.INJURY_TRIGGER;
+        return PCRecipes.DROWNING_TRIGGER;
     }
 
     private boolean containsPotionEffect(ItemStack itemStack, StatusEffect statusEffect){

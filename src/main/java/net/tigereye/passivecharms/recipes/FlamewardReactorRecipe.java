@@ -11,8 +11,8 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.tigereye.passivecharms.registration.PC_Items;
-import net.tigereye.passivecharms.registration.PC_Recipes;
+import net.tigereye.passivecharms.registration.PCItems;
+import net.tigereye.passivecharms.registration.PCRecipes;
 
 import java.util.List;
 
@@ -68,7 +68,7 @@ public class FlamewardReactorRecipe extends SpecialCraftingRecipe {
     }
 
     public ItemStack craft(CraftingInventory inv) {
-        return new ItemStack(PC_Items.FLAMEWARD_REACTOR);
+        return new ItemStack(PCItems.FLAMEWARD_REACTOR);
     }
 
     public boolean fits(int width, int height) {
@@ -76,7 +76,7 @@ public class FlamewardReactorRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return PC_Recipes.FLAMEWARD_REACTOR;
+        return PCRecipes.FLAMEWARD_REACTOR;
     }
 
     private boolean containsFireResistance(ItemStack itemStack){

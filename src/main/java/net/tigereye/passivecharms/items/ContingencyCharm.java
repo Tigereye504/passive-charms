@@ -7,14 +7,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.contingency_reactors.ContingencyCharmReaction;
 import net.tigereye.passivecharms.items.contingency_triggers.ContingencyCharmTrigger;
-import net.tigereye.passivecharms.registration.PC_Items;
 import net.minecraft.entity.Entity;
 
 import java.util.List;

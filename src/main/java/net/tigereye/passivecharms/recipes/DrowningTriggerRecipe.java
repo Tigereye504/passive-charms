@@ -12,8 +12,8 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.tigereye.passivecharms.registration.PC_Items;
-import net.tigereye.passivecharms.registration.PC_Recipes;
+import net.tigereye.passivecharms.registration.PCItems;
+import net.tigereye.passivecharms.registration.PCRecipes;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class DrowningTriggerRecipe extends SpecialCraftingRecipe {
     }
 
     public ItemStack craft(CraftingInventory inv) {
-        return new ItemStack(PC_Items.DROWNING_TRIGGER);
+        return new ItemStack(PCItems.DROWNING_TRIGGER);
     }
 
     public boolean fits(int width, int height) {
@@ -77,7 +77,7 @@ public class DrowningTriggerRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return PC_Recipes.DROWNING_TRIGGER;
+        return PCRecipes.DROWNING_TRIGGER;
     }
 
     private boolean containsPotionEffect(ItemStack itemStack, StatusEffect statusEffect){
