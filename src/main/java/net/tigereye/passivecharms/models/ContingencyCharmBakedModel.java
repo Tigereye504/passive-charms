@@ -1,6 +1,5 @@
 package net.tigereye.passivecharms.models;
 
-import jdk.internal.jline.internal.Nullable;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
@@ -13,7 +12,6 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resource.Resource;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
@@ -26,6 +24,7 @@ import net.tigereye.passivecharms.items.ContingencyCharm;
 import net.tigereye.passivecharms.registration.PCItems;
 import net.tigereye.passivecharms.util.ModelUtil;
 import org.apache.commons.io.Charsets;
+import org.jetbrains.annotations.Nullable;
 
 
 import java.io.BufferedReader;
@@ -148,7 +147,7 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
     }
 
     @Override
-    public Sprite getSprite() {
+    public Sprite getParticleSprite() {
         return MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).apply(new Identifier("block/cobblestone"));
     }
 

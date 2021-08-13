@@ -6,7 +6,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.world.World;
@@ -48,12 +48,12 @@ public class ContingencyCharm extends Item{
     /*
     private boolean loadContingencyFromNBT(ItemStack stack){
         boolean ret = true;
-        Item temp = ItemStack.fromTag(stack.getSubTag("TriggerItem")).getItem();
+        Item temp = ItemStack.fromTag(stack.getSubNbt("TriggerItem")).getItem();
         if(temp instanceof ContingencyCharmTrigger){
             trigger = (ContingencyCharmTrigger)temp;
         }
         else{ret = false;}
-        temp = ItemStack.fromTag(stack.getSubTag("ReactionItem")).getItem();
+        temp = ItemStack.fromTag(stack.getSubNbt("ReactionItem")).getItem();
         if(temp instanceof ContingencyCharmReaction){
             reaction = (ContingencyCharmReaction)temp;
         }
@@ -62,7 +62,7 @@ public class ContingencyCharm extends Item{
     }
     */
     public static ItemStack loadReactionFromNBT(ItemStack stack){
-        ItemStack temp = ItemStack.fromTag(stack.getSubTag("ReactionItem"));
+        ItemStack temp = ItemStack.fromNbt(stack.getSubNbt("ReactionItem"));
         if(temp.getItem() instanceof ContingencyCharmReaction){
             return temp;
         }
@@ -70,7 +70,7 @@ public class ContingencyCharm extends Item{
     }
 
     public static ItemStack loadTriggerFromNBT(ItemStack stack){
-        ItemStack temp = ItemStack.fromTag(stack.getSubTag("TriggerItem"));
+        ItemStack temp = ItemStack.fromNbt(stack.getSubNbt("TriggerItem"));
         if(temp.getItem() instanceof ContingencyCharmTrigger){
             return temp;
         }
@@ -78,8 +78,8 @@ public class ContingencyCharm extends Item{
     }
 
     public static void saveContingencyToNBT(ItemStack stack, ItemStack trigger, ItemStack reactor){
-        stack.putSubTag("TriggerItem", trigger.toTag(new CompoundTag()));
-        stack.putSubTag("ReactionItem", reactor.toTag(new CompoundTag()));
+        stack.setSubNbt("TriggerItem", trigger.writeNbt(new NbtCompound()));
+        stack.setSubNbt("ReactionItem", reactor.writeNbt(new NbtCompound()));
     }
 
     @Override

@@ -1,14 +1,6 @@
 package net.tigereye.passivecharms.util;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.World;
-import net.tigereye.passivecharms.registration.PCItems;
-
-import java.util.Random;
 import java.util.function.BiFunction;
 
 public class InventoryUtil {

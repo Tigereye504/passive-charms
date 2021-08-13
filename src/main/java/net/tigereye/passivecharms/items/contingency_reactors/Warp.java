@@ -6,7 +6,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -29,16 +29,16 @@ public class Warp extends ContingencyCharmReaction{
         RegistryKey<World> dim = World.OVERWORLD;
         if(stack.getMaxDamage()-stack.getDamage() > COST){
             if(entity instanceof LivingEntity){
-                if(!Reactant.hasTag()){
-                    Reactant.setTag(new CompoundTag());
+                if(!Reactant.hasNbt()){
+                    Reactant.setNbt(new NbtCompound());
                 }
                 stack.damage(COST, new Random(), entity instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity : null);
-                if(Reactant.getTag().contains("WarpX")){x = Reactant.getTag().getInt("WarpX");}
-                if(Reactant.getTag().contains("WarpY")){y = Reactant.getTag().getInt("WarpY");}
-                if(Reactant.getTag().contains("WarpZ")){z = Reactant.getTag().getInt("WarpZ");}
-                if(Reactant.getTag().contains("WarpWorld")) {
-                    dim = RegistryKey.of(Registry.DIMENSION,
-                            new Identifier(Reactant.getTag().getString("WarpWorld")));
+                if(Reactant.getNbt().contains("WarpX")){x = Reactant.getNbt().getInt("WarpX");}
+                if(Reactant.getNbt().contains("WarpY")){y = Reactant.getNbt().getInt("WarpY");}
+                if(Reactant.getNbt().contains("WarpZ")){z = Reactant.getNbt().getInt("WarpZ");}
+                if(Reactant.getNbt().contains("WarpWorld")) {
+                    dim = RegistryKey.of(Registry.WORLD_KEY, //TODO: if warping acts badly, this may be the wrong registry. It was .DIMENSION
+                            new Identifier(Reactant.getNbt().getString("WarpWorld")));
                 }
                 if(entity.getEntityWorld().getRegistryKey() != dim) {
                     entity.moveToWorld(entity.getServer().getWorld(dim));
@@ -51,20 +51,20 @@ public class Warp extends ContingencyCharmReaction{
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!world.isClient()) {
-            if(!stack.hasTag()){
-                stack.setTag(new CompoundTag());
+            if(!stack.hasNbt()){
+                stack.setNbt(new NbtCompound());
             }
-            if(!stack.getTag().contains("WarpX")){
-                stack.getTag().putInt("WarpX",entity.getBlockPos().getX());
+            if(!stack.getNbt().contains("WarpX")){
+                stack.getNbt().putInt("WarpX",entity.getBlockPos().getX());
             }
-            if(!stack.getTag().contains("WarpY")){
-                stack.getTag().putInt("WarpY",entity.getBlockPos().getY());
+            if(!stack.getNbt().contains("WarpY")){
+                stack.getNbt().putInt("WarpY",entity.getBlockPos().getY());
             }
-            if(!stack.getTag().contains("WarpZ")){
-                stack.getTag().putInt("WarpZ",entity.getBlockPos().getZ());
+            if(!stack.getNbt().contains("WarpZ")){
+                stack.getNbt().putInt("WarpZ",entity.getBlockPos().getZ());
             }
-            if(!stack.getTag().contains("WarpWorld")){
-                stack.getTag().putString("WarpWorld",world.getRegistryKey().getValue().toString());
+            if(!stack.getNbt().contains("WarpWorld")){
+                stack.getNbt().putString("WarpWorld",world.getRegistryKey().getValue().toString());
             }
         }
     }

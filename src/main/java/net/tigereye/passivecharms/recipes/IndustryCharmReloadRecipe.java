@@ -73,7 +73,7 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
                         if(foundCharm){return ItemStack.EMPTY;}
                         foundCharm = true;
                         charm = itemStack.copy();
-                        fuelGain += charm.getOrCreateTag().getInt(IndustryCharm.LEFTOVER_TICKS_KEY);
+                        fuelGain += charm.getOrCreateNbt().getInt(IndustryCharm.LEFTOVER_TICKS_KEY);
                     }
                     else if(item == Items.AIR){
                         //empty space is fine
@@ -99,7 +99,7 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
         }
         if(foundCharm){
             charm.setDamage(Math.max(0,charm.getDamage()-(fuelGain/IndustryCharm.FUEL_TICKS_PER_DURABILITY)));
-            charm.getOrCreateTag().putInt(IndustryCharm.LEFTOVER_TICKS_KEY,fuelGain % IndustryCharm.FUEL_TICKS_PER_DURABILITY);
+            charm.getOrCreateNbt().putInt(IndustryCharm.LEFTOVER_TICKS_KEY,fuelGain % IndustryCharm.FUEL_TICKS_PER_DURABILITY);
             return charm;
         }
         return ItemStack.EMPTY;

@@ -35,8 +35,8 @@ public class IndustryCharm extends Item {
         super.inventoryTick(stack,world,entity,slot,selected);
         if(!world.isClient() && stack.getDamage() < (stack.getMaxDamage()-1)){
             if(entity instanceof ServerPlayerEntity && world.getTime() % (20*SECONDS_BETWEEN_SMELTS) == 0){
-                PlayerInventory inventory = ((ServerPlayerEntity)entity).inventory;
-                int lastSmelt = stack.getOrCreateTag().getInt("lastSmelt");
+                PlayerInventory inventory = ((ServerPlayerEntity)entity).getInventory();
+                int lastSmelt = stack.getOrCreateNbt().getInt("lastSmelt");
 
                 ItemStack invItem;
                 int checkSlot;
@@ -63,7 +63,7 @@ public class IndustryCharm extends Item {
                                             PassiveCharms.LOGGER.info("Smelting in Slot " + slot + "\n");
                                             invItem.decrement(1);
                                             stack.damage(cost, ((ServerPlayerEntity) entity).getRandom(), ((ServerPlayerEntity) entity));
-                                            stack.getTag().putInt("lastSmelt", checkSlot);
+                                            stack.getNbt().putInt("lastSmelt", checkSlot);
                                             inventory.markDirty();
                                             return;
                                         }
