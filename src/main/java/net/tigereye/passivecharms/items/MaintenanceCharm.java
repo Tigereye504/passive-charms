@@ -1,5 +1,6 @@
 package net.tigereye.passivecharms.items;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -9,18 +10,15 @@ import net.minecraft.world.World;
 import net.tigereye.passivecharms.PassiveCharms;
 import net.tigereye.passivecharms.registration.PCItems;
 import net.minecraft.entity.Entity;
-import net.minecraft.inventory.Inventory;
 import net.tigereye.passivecharms.util.InventoryTickContext;
 import net.tigereye.passivecharms.util.InventoryUtil;
-
-import java.util.Random;
 
 
 public class MaintenanceCharm extends Item{
     
     private static final int REPAIRS_BETWEEN_RESETS = 1000;
-    private static final int SECONDS_BETWEEN_REPAIR = 5;
-    private static final int SECONDS_TO_RECOVER = 10;
+    private static final int TICKS_BETWEEN_REPAIR = 100;
+    private static final int TICKS_TO_RECOVER = 200;
     private static final int USES_PER_RECOVER = 1;
 
 	public MaintenanceCharm() {
@@ -29,23 +27,20 @@ public class MaintenanceCharm extends Item{
     
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 	    super.inventoryTick(stack,world,entity,slot,selected);
-        if(!world.isClient() && world.getTime() % 20 == 0){
-            int mendingTimer = stack.getOrCreateNbt().getInt("mendingTimer"); //load mendingTimer
-            mendingTimer++;
-            if(mendingTimer >= SECONDS_TO_RECOVER){
-                stack.setDamage(Math.max(stack.getDamage()-USES_PER_RECOVER,0));
-                stack.getNbt().putInt("mendingTimer", 0);
-            }
-            else if(entity instanceof ServerPlayerEntity && mendingTimer >= SECONDS_BETWEEN_REPAIR && stack.getDamage() < (stack.getMaxDamage()-1)){
-                InventoryTickContext context = new InventoryTickContext(((ServerPlayerEntity)entity).getInventory(),stack,world,entity,slot,selected);
-                int lastRepair = stack.getNbt().getInt("lastRepair");
+        NbtCompound nbt = stack.getOrCreateNbt();
+        long timeSinceLastAction = world.getTime() - nbt.getLong("mendingTimer");
+        if(!world.isClient() && timeSinceLastAction >= TICKS_BETWEEN_REPAIR){
+            if(entity instanceof ServerPlayerEntity sPLayer && stack.getDamage() < (stack.getMaxDamage()-1)){
+                InventoryTickContext context = new InventoryTickContext(sPLayer.getInventory(),stack,world,entity,slot,selected);
+                int lastRepair = nbt.getInt("lastRepair");
                 int slotToRepair = InventoryUtil.findTargetableInventoryItemStack(context,this::repairableItemCondition,lastRepair+1);
                 if(slotToRepair != -1){
                     repairItem(context,slotToRepair);
                 }
             }
-            else {
-                stack.getNbt().putInt("mendingTimer", mendingTimer);
+            else if(timeSinceLastAction >= TICKS_TO_RECOVER){
+                stack.setDamage(Math.max(stack.getDamage()-USES_PER_RECOVER,0));
+                nbt.putLong("mendingTimer", world.getTime());
             }
         }
     }
@@ -56,12 +51,14 @@ public class MaintenanceCharm extends Item{
     }
 
     protected void repairItem(InventoryTickContext context, Integer slot){
-        ItemStack invItem = context.inventory.getStack(slot);
-        int lastRepair = context.stack.getOrCreateNbt().getInt("lastRepair");
-        PassiveCharms.LOGGER.info("Repairing " + "in Slot " + slot + "\n");
-        invItem.setDamage(Math.max(invItem.getDamage() - 1, 0));
-        context.stack.damage(1, new Random(), ((ServerPlayerEntity) context.entity));
-        context.stack.getNbt().putInt("lastRepair", slot);
-        context.stack.getNbt().putInt("mendingTimer", 0);
+        NbtCompound nbt = context.stack.getOrCreateNbt();
+        if(context.entity instanceof LivingEntity lEntity) {
+            ItemStack invItem = context.inventory.getStack(slot);
+            PassiveCharms.LOGGER.debug("Repairing " + "in Slot " + slot + "\n");
+            invItem.setDamage(Math.max(invItem.getDamage() - 1, 0));
+            context.stack.damage(1, lEntity.getRandom(), ((ServerPlayerEntity) context.entity));
+            nbt.putInt("lastRepair", slot);
+            nbt.putLong("mendingTimer", context.world.getTime());
+        }
     }
 }

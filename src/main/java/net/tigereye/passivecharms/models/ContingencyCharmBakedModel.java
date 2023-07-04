@@ -46,12 +46,12 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
     }
 
     @Override
-    public void emitItemQuads(ItemStack itemStack, Supplier<Random> supplier, RenderContext context) {
+    public void emitItemQuads(ItemStack stack, Supplier<net.minecraft.util.math.random.Random> randomSupplier, RenderContext context) {
         String trigger;
         String reactor;
         try {
-            trigger = Registry.ITEM.getId(ContingencyCharm.loadTriggerFromNBT(itemStack).getItem()).toString();
-            reactor = Registry.ITEM.getId(ContingencyCharm.loadReactionFromNBT(itemStack).getItem()).toString();
+            trigger = Registry.ITEM.getId(ContingencyCharm.loadTriggerFromNBT(stack).getItem()).toString();
+            reactor = Registry.ITEM.getId(ContingencyCharm.loadReactionFromNBT(stack).getItem()).toString();
         }
         catch(NullPointerException e){
             trigger = Registry.ITEM.getId(PCItems.INJURY_TRIGGER).toString();
@@ -87,8 +87,11 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
 
     public static Reader getReaderForResource(Identifier location) throws IOException {
         Identifier file = new Identifier(location.getNamespace(), location.getPath() + ".json");
-        Resource resource = MinecraftClient.getInstance().getResourceManager().getResource(file);
-        return new BufferedReader(new InputStreamReader(resource.getInputStream(), Charsets.UTF_8));
+        Resource resource = MinecraftClient.getInstance().getResourceManager().getResource(file).orElse(null);
+        if(resource != null) {
+            return new BufferedReader(new InputStreamReader(resource.getInputStream(), Charsets.UTF_8));
+        }
+        return null;
     }
 
     @Override
@@ -117,12 +120,13 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
         return Collections.emptyList();
     }
 
-    @Override
-    public void emitBlockQuads(BlockRenderView blockRenderView, BlockState blockState, BlockPos blockPos, Supplier<Random> supplier, RenderContext renderContext) {
-    }
 
     @Override
-    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, Random random) {
+    public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<net.minecraft.util.math.random.Random> randomSupplier, RenderContext context) {}
+
+
+    @Override
+    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, net.minecraft.util.math.random.Random random) {
         return new ArrayList<>();
     }
 
@@ -170,4 +174,7 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
     public boolean isVanillaAdapter() {
         return false;
     }
+
+
+
 }

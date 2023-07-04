@@ -20,9 +20,9 @@ public class Featherfall extends ContingencyCharmReaction{
 
     public void React(ItemStack stack, World world, Entity entity, int slot, boolean selected, ItemStack Reactant){
         if(stack.getMaxDamage()-stack.getDamage() > COST){
-            if(entity instanceof LivingEntity){
-                stack.damage(COST, new Random(), entity instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity : null);
-                ((LivingEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, DURATION));
+            if(entity instanceof LivingEntity lEntity){
+                stack.damage(COST, lEntity.getRandom(), entity instanceof ServerPlayerEntity sEntity ? sEntity : null);
+                lEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, DURATION));
             }
         }
     }

@@ -8,7 +8,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.contingency_reactors.ContingencyCharmReaction;
 import net.tigereye.passivecharms.items.contingency_triggers.ContingencyCharmTrigger;
@@ -87,13 +86,19 @@ public class ContingencyCharm extends Item{
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         ItemStack trigger = loadTriggerFromNBT(itemStack);
         ItemStack reaction = loadReactionFromNBT(itemStack);
-        TranslatableText triggerName = new TranslatableText("item.passivecharms.contingency_charm.tooltip_empty");
-        TranslatableText reactionName = new TranslatableText("item.passivecharms.contingency_charm.tooltip_empty");
+        Text triggerName;
+        Text reactionName;
         if(trigger != null){
-            triggerName = new TranslatableText(trigger.getTranslationKey());
+            triggerName = Text.translatable(trigger.getTranslationKey());
+        }
+        else{
+            triggerName = Text.translatable("item.passivecharms.contingency_charm.tooltip_empty");
         }
         if(reaction != null){
-            reactionName = new TranslatableText(reaction.getTranslationKey());
+            reactionName = Text.translatable(reaction.getTranslationKey());
+        }
+        else{
+            reactionName = Text.translatable("item.passivecharms.contingency_charm.tooltip_empty");
         }
         tooltip.add(triggerName);
         tooltip.add(reactionName);

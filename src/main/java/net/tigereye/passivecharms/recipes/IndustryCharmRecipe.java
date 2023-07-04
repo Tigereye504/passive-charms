@@ -2,7 +2,6 @@ package net.tigereye.passivecharms.recipes;
 
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -60,17 +59,6 @@ public class IndustryCharmRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return PCRecipes.DROWNING_TRIGGER;
+        return PCRecipes.INDUSTRY_CHARM;
     }
-
-    private boolean containsPotionEffect(ItemStack itemStack, StatusEffect statusEffect){
-        List<StatusEffectInstance> effects = PotionUtil.getPotionEffects(itemStack);
-        for (StatusEffectInstance i: effects) {
-            if(i.getEffectType() == statusEffect){
-                return true;
-            }
-        }
-        return false;
-    }
-    
 }

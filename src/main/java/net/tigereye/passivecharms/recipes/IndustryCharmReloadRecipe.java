@@ -1,7 +1,6 @@
 package net.tigereye.passivecharms.recipes;
 
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.impl.content.registry.FuelRegistryImpl;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.inventory.CraftingInventory;
@@ -36,10 +35,7 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
                         if(foundCharm){return false;}
                         foundCharm = true;
                     }
-                    else if(item == Items.AIR){
-                        //empty space is fine
-                    }
-                    else {
+                    else if(item != Items.AIR){
                         try {
                             int fuel = FuelRegistry.INSTANCE.get(item);
                             if (fuel == 0) {
@@ -75,21 +71,20 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
                         charm = itemStack.copy();
                         fuelGain += charm.getOrCreateNbt().getInt(IndustryCharm.LEFTOVER_TICKS_KEY);
                     }
-                    else if(item == Items.AIR){
-                        //empty space is fine
-                    }
-                    else try{
-                        if(FuelRegistry.INSTANCE.get(item) != 0) {
-                            fuelGain += FuelRegistry.INSTANCE.get(item);
-                            //found fuel
+                    else if(item != Items.AIR){
+                        try{
+                            if(FuelRegistry.INSTANCE.get(item) != 0) {
+                                fuelGain += FuelRegistry.INSTANCE.get(item);
+                                //found fuel
+                            }
+                            else{
+                                return ItemStack.EMPTY;
+                                //non-fuel items are not fine
+                            }
                         }
-                        else{
+                        catch(NullPointerException e){
                             return ItemStack.EMPTY;
-                            //non-fuel items are not fine
                         }
-                    }
-                    catch(NullPointerException e){
-                        return ItemStack.EMPTY;
                     }
 
                 }
@@ -106,21 +101,11 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
     }
 
     public boolean fits(int width, int height) {
-        return (width >= 3 && height >= 3);
+        return (width >= 2 && height >= 2);
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return PCRecipes.DROWNING_TRIGGER;
-    }
-
-    private boolean containsPotionEffect(ItemStack itemStack, StatusEffect statusEffect){
-        List<StatusEffectInstance> effects = PotionUtil.getPotionEffects(itemStack);
-        for (StatusEffectInstance i: effects) {
-            if(i.getEffectType() == statusEffect){
-                return true;
-            }
-        }
-        return false;
+        return PCRecipes.INDUSTRY_CHARM_RELOAD;
     }
     
 }

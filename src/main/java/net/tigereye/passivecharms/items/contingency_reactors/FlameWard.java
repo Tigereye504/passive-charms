@@ -1,7 +1,5 @@
 package net.tigereye.passivecharms.items.contingency_reactors;
 
-import java.util.Random;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -21,9 +19,9 @@ public class FlameWard extends ContingencyCharmReaction{
 
     public void React(ItemStack stack, World world, Entity entity, int slot, boolean selected, ItemStack Reactant){
         if(stack.getMaxDamage()-stack.getDamage() > COST){
-            if(entity instanceof LivingEntity){
-                stack.damage(COST, new Random(), entity instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity : null);
-                ((LivingEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, DURATION));
+            if(entity instanceof LivingEntity lEntity){
+                stack.damage(COST, lEntity.getRandom(), entity instanceof ServerPlayerEntity sEntity ? sEntity : null);
+                lEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, DURATION));
             }
         }
     }
