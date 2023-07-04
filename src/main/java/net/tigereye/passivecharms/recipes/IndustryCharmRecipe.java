@@ -1,20 +1,15 @@
 package net.tigereye.passivecharms.recipes;
 
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.potion.PotionUtil;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.registration.PCItems;
 import net.tigereye.passivecharms.registration.PCRecipes;
-
-import java.util.List;
 
 public class IndustryCharmRecipe extends SpecialCraftingRecipe {
 

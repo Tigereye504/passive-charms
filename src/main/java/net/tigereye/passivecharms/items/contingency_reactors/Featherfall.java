@@ -9,8 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
-import java.util.Random;
-
 public class Featherfall extends ContingencyCharmReaction{
     private static final int COST = 333;
     private static final int DURATION = 600;

@@ -21,6 +21,9 @@ public class Warp extends ContingencyCharmReaction{
         int x;
         int y = 64;
         int z;
+        if(world.isClient()){
+            return;
+        }
         RegistryKey<World> dim = World.OVERWORLD;
         if(stack.getMaxDamage()-stack.getDamage() > COST){
             if(entity instanceof LivingEntity lEntity){
@@ -31,7 +34,7 @@ public class Warp extends ContingencyCharmReaction{
                 z = nbt.getInt("WarpZ");
                 if(nbt.contains("WarpWorld")) {
                     dim = RegistryKey.of(Registry.WORLD_KEY, //TODO: if warping acts badly, this may be the wrong registry. It was .DIMENSION
-                            new Identifier(Reactant.getNbt().getString("WarpWorld")));
+                            new Identifier(nbt.getString("WarpWorld")));
                 }
                 if(entity.getEntityWorld().getRegistryKey() != dim) {
                     entity.moveToWorld(entity.getServer().getWorld(dim));
