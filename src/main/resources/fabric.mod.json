@@ -23,7 +23,7 @@
     ],
     "client": [
       {
-        "value": "net.tigereye.passivecharms.PassiveCharms"
+        "value": "net.tigereye.passivecharms.PassiveCharmsClient"
       }
     ]
   },

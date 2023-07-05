@@ -61,17 +61,23 @@ public class ContingencyCharm extends Item{
     }
     */
     public static ItemStack loadReactionFromNBT(ItemStack stack){
-        ItemStack temp = ItemStack.fromNbt(stack.getSubNbt("ReactionItem"));
-        if(temp.getItem() instanceof ContingencyCharmReaction){
-            return temp;
+        NbtCompound reactorNbt = stack.getSubNbt("TriggerItem");
+        if(reactorNbt != null) {
+            ItemStack temp = ItemStack.fromNbt(stack.getSubNbt("ReactionItem"));
+            if (temp.getItem() instanceof ContingencyCharmReaction) {
+                return temp;
+            }
         }
         return null;
     }
 
     public static ItemStack loadTriggerFromNBT(ItemStack stack){
-        ItemStack temp = ItemStack.fromNbt(stack.getSubNbt("TriggerItem"));
-        if(temp.getItem() instanceof ContingencyCharmTrigger){
-            return temp;
+        NbtCompound triggerNbt = stack.getSubNbt("TriggerItem");
+        if(triggerNbt != null) {
+            ItemStack temp = ItemStack.fromNbt(stack.getSubNbt("TriggerItem"));
+            if (temp.getItem() instanceof ContingencyCharmTrigger) {
+                return temp;
+            }
         }
         return null;
     }

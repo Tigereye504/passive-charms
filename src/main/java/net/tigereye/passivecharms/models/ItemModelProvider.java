@@ -1,5 +1,7 @@
 package net.tigereye.passivecharms.models;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.model.ModelProviderContext;
 import net.fabricmc.fabric.api.client.model.ModelVariantProvider;
 import net.minecraft.client.render.model.UnbakedModel;
@@ -7,6 +9,7 @@ import net.minecraft.client.util.ModelIdentifier;
 import net.tigereye.passivecharms.PassiveCharms;
 import org.jetbrains.annotations.Nullable;
 
+@Environment(EnvType.CLIENT)
 public class ItemModelProvider implements ModelVariantProvider {
 
     @Override

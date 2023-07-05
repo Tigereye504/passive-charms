@@ -60,7 +60,7 @@ public class IndustryCharm extends Item {
                                     if (stack.getDamage() < (stack.getMaxDamage() - cost)) {
                                         ItemStack output = recipe.getOutput().copy();
                                         if (inventory.insertStack(output)) {
-                                            PassiveCharms.LOGGER.info("Smelting in Slot " + slot + "\n");
+                                            PassiveCharms.LOGGER.debug("Smelting in Slot " + slot + "\n");
                                             invItem.decrement(1);
                                             stack.damage(cost, ((ServerPlayerEntity) entity).getRandom(), ((ServerPlayerEntity) entity));
                                             stack.getNbt().putInt("lastSmelt", checkSlot);

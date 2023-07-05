@@ -20,7 +20,7 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
     }
 
     public boolean matches(CraftingInventory craftingInventory, World world) {
-        if (craftingInventory.getWidth() == 3 && craftingInventory.getHeight() == 3) {
+        if (craftingInventory.getWidth() >= 2 && craftingInventory.getHeight() >= 2) {
             boolean foundCharm = false;
             for(int i = 0; i < craftingInventory.getWidth(); ++i) {
                 for(int j = 0; j < craftingInventory.getHeight(); ++j) {
@@ -45,7 +45,7 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
                     }
                 }
             }
-            return true;
+            return foundCharm;
         } else {
             return false;
         }
@@ -55,7 +55,7 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
         ItemStack charm = ItemStack.EMPTY;
         int fuelGain = 0;
         boolean foundCharm = false;
-        if (craftingInventory.getWidth() == 3 && craftingInventory.getHeight() == 3) {
+        if (craftingInventory.getWidth() >= 2 && craftingInventory.getHeight() >= 2) {
             for(int i = 0; i < craftingInventory.getWidth(); ++i) {
                 for(int j = 0; j < craftingInventory.getHeight(); ++j) {
                     ItemStack itemStack = craftingInventory.getStack(i + j * craftingInventory.getWidth());
