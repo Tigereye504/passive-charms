@@ -1,12 +1,12 @@
 package net.tigereye.passivecharms.recipes;
 
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
@@ -15,11 +15,13 @@ import net.minecraft.world.World;
 import net.tigereye.passivecharms.registration.PCItems;
 import net.tigereye.passivecharms.registration.PCRecipes;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class FeatherfallReactorRecipe extends SpecialCraftingRecipe {
+public class PotionReactorRecipe extends SpecialCraftingRecipe {
 
-    public FeatherfallReactorRecipe(Identifier id) {
+    private static final int DURATION_DIVISOR = 4;
+    public PotionReactorRecipe(Identifier id) {
         super(id);
     }
 
@@ -50,12 +52,11 @@ public class FeatherfallReactorRecipe extends SpecialCraftingRecipe {
                             return false;
                         }
                         Item item = itemStack.getItem();
-                        if (item != Items.LINGERING_POTION) {
-                            //System.out.println("Flameward Recipe Failed at ("+i+","+j+"); not Lingering Potion");
-                            return false;
-                        }
-                        if (!containsPotionEffect(itemStack,StatusEffects.SLOW_FALLING)){
-                            //System.out.println("Flameward Recipe Failed at ("+i+","+j+"); not Fire Resistance");
+                        if (item != Items.POTION
+                            && item != Items.SPLASH_POTION
+                            && item != Items.LINGERING_POTION)
+                        {
+                            //System.out.println("Flameward Recipe Failed at ("+i+","+j+"); not Potion");
                             return false;
                         }
                     }
@@ -69,7 +70,25 @@ public class FeatherfallReactorRecipe extends SpecialCraftingRecipe {
     }
 
     public ItemStack craft(CraftingInventory inv) {
-        return new ItemStack(PCItems.FEATHERFALL_REACTOR);
+        ItemStack output = new ItemStack(PCItems.POTION_REACTOR);
+        ItemStack potion = inv.getStack(4);
+        List<StatusEffectInstance> potionList = PotionUtil.getPotionEffects(potion);
+        List<StatusEffectInstance> list = new ArrayList<>();
+        for (StatusEffectInstance effect : potionList) {
+            StatusEffectInstance effectCopy = new StatusEffectInstance(effect.getEffectType(),Math.max(2,effect.getDuration()/DURATION_DIVISOR), effect.getAmplifier());
+            list.add(effectCopy);
+        }
+        NbtCompound tag = output.getOrCreateNbt();
+        NbtList NbtList = new NbtList();
+
+        for (StatusEffectInstance effect : list) {
+            if (effect != null) {
+                NbtCompound NbtCompound = new NbtCompound();
+                NbtList.add(effect.writeNbt(NbtCompound));
+            }
+        }
+        tag.put("CustomPotionEffects",NbtList);
+        return output;
     }
 
     public boolean fits(int width, int height) {
@@ -77,17 +96,6 @@ public class FeatherfallReactorRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return PCRecipes.FEATHERFALL_REACTOR;
+        return PCRecipes.POTION_REACTOR;
     }
-
-    private boolean containsPotionEffect(ItemStack itemStack, StatusEffect statusEffect){
-        List<StatusEffectInstance> effects = PotionUtil.getPotionEffects(itemStack);
-        for (StatusEffectInstance i: effects) {
-            if(i.getEffectType() == statusEffect){
-                return true;
-            }
-        }
-        return false;
-    }
-    
 }

@@ -1,5 +1,6 @@
 package net.tigereye.passivecharms.items;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -9,7 +10,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.PassiveCharms;
 import net.tigereye.passivecharms.registration.PCItems;
-import net.minecraft.entity.Entity;
 import net.tigereye.passivecharms.util.InventoryTickContext;
 import net.tigereye.passivecharms.util.InventoryUtil;
 
@@ -36,9 +36,10 @@ public class MaintenanceCharm extends Item{
                 int slotToRepair = InventoryUtil.findTargetableInventoryItemStack(context,this::repairableItemCondition,lastRepair+1);
                 if(slotToRepair != -1){
                     repairItem(context,slotToRepair);
+                    timeSinceLastAction = 0;
                 }
             }
-            else if(timeSinceLastAction >= TICKS_TO_RECOVER){
+            if(timeSinceLastAction >= TICKS_TO_RECOVER){
                 stack.setDamage(Math.max(stack.getDamage()-USES_PER_RECOVER,0));
                 nbt.putLong("mendingTimer", world.getTime());
             }

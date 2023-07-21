@@ -3,6 +3,7 @@ package net.tigereye.passivecharms.items;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -11,59 +12,45 @@ import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.contingency_reactors.ContingencyCharmReaction;
 import net.tigereye.passivecharms.items.contingency_triggers.ContingencyCharmTrigger;
-import net.minecraft.entity.Entity;
 
 import java.util.List;
 
 
 public class ContingencyCharm extends Item{
     
-    private static final int DURABILITY = 1000;
-    //ContingencyCharmTrigger trigger = PC_Items.IMMOLATION_TRIGGER;
-    //ContingencyCharmReaction reaction = PC_Items.FLAMEWARD_REACTOR;
+    public static final int DURABILITY = 120;
+    private static final String TRIGGERED_KEY = "Triggered";
+    private static final String TRIGGER_ITEM_KEY = "TriggerItem";
+    private static final String REACTOR_ITEM_KEY = "ReactionItem";
 
 	public ContingencyCharm() {
 		super(new Item.Settings().maxCount(1).group(ItemGroup.TOOLS).maxDamage(DURABILITY));
     }
-    /*
-    public ContingencyCharm(ContingencyCharmTrigger trigger, ContingencyCharmReaction reaction) {
-        super(new Item.Settings().maxCount(1).group(ItemGroup.TOOLS).maxDamage(DURABILITY));
-        this.trigger = trigger;
-        this.reaction = reaction;
-	}
-    */
+
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if(!world.isClient()){
             ItemStack trigger = loadTriggerFromNBT(stack);
             ItemStack reaction = loadReactionFromNBT(stack);
+            NbtCompound nbt = stack.getOrCreateNbt();
             if(trigger != null && reaction != null){
-                if(((ContingencyCharmTrigger)trigger.getItem()).TriggerConditionMet(stack, world, entity, slot, selected, trigger))
-                {
-                    ((ContingencyCharmReaction)reaction.getItem()).React(stack, world, entity, slot, selected, reaction);
+                if(((ContingencyCharmTrigger)trigger.getItem()).TriggerConditionMet(stack, world, entity, slot, selected, trigger)){
+                    if(!nbt.contains(TRIGGERED_KEY)) {
+                        if (((ContingencyCharmReaction) reaction.getItem()).React(stack, world, entity, slot, selected, reaction)) {
+                            nbt.putBoolean(TRIGGERED_KEY, true);
+                        }
+                    }
+                }
+                else {
+                    nbt.remove(TRIGGERED_KEY);
                 }
             }
         }
     }
-    /*
-    private boolean loadContingencyFromNBT(ItemStack stack){
-        boolean ret = true;
-        Item temp = ItemStack.fromTag(stack.getSubNbt("TriggerItem")).getItem();
-        if(temp instanceof ContingencyCharmTrigger){
-            trigger = (ContingencyCharmTrigger)temp;
-        }
-        else{ret = false;}
-        temp = ItemStack.fromTag(stack.getSubNbt("ReactionItem")).getItem();
-        if(temp instanceof ContingencyCharmReaction){
-            reaction = (ContingencyCharmReaction)temp;
-        }
-        else{ret = false;}
-        return ret;
-    }
-    */
+
     public static ItemStack loadReactionFromNBT(ItemStack stack){
-        NbtCompound reactorNbt = stack.getSubNbt("TriggerItem");
+        NbtCompound reactorNbt = stack.getSubNbt(REACTOR_ITEM_KEY);
         if(reactorNbt != null) {
-            ItemStack temp = ItemStack.fromNbt(stack.getSubNbt("ReactionItem"));
+            ItemStack temp = ItemStack.fromNbt(stack.getSubNbt(REACTOR_ITEM_KEY));
             if (temp.getItem() instanceof ContingencyCharmReaction) {
                 return temp;
             }
@@ -72,9 +59,9 @@ public class ContingencyCharm extends Item{
     }
 
     public static ItemStack loadTriggerFromNBT(ItemStack stack){
-        NbtCompound triggerNbt = stack.getSubNbt("TriggerItem");
+        NbtCompound triggerNbt = stack.getSubNbt(TRIGGER_ITEM_KEY);
         if(triggerNbt != null) {
-            ItemStack temp = ItemStack.fromNbt(stack.getSubNbt("TriggerItem"));
+            ItemStack temp = ItemStack.fromNbt(stack.getSubNbt(TRIGGER_ITEM_KEY));
             if (temp.getItem() instanceof ContingencyCharmTrigger) {
                 return temp;
             }
@@ -83,8 +70,8 @@ public class ContingencyCharm extends Item{
     }
 
     public static void saveContingencyToNBT(ItemStack stack, ItemStack trigger, ItemStack reactor){
-        stack.setSubNbt("TriggerItem", trigger.writeNbt(new NbtCompound()));
-        stack.setSubNbt("ReactionItem", reactor.writeNbt(new NbtCompound()));
+        stack.setSubNbt(TRIGGER_ITEM_KEY, trigger.writeNbt(new NbtCompound()));
+        stack.setSubNbt(REACTOR_ITEM_KEY, reactor.writeNbt(new NbtCompound()));
     }
 
     @Override
@@ -95,13 +82,13 @@ public class ContingencyCharm extends Item{
         Text triggerName;
         Text reactionName;
         if(trigger != null){
-            triggerName = Text.translatable(trigger.getTranslationKey());
+            triggerName = trigger.getName();
         }
         else{
             triggerName = Text.translatable("item.passivecharms.contingency_charm.tooltip_empty");
         }
         if(reaction != null){
-            reactionName = Text.translatable(reaction.getTranslationKey());
+            reactionName = reaction.getName();
         }
         else{
             reactionName = Text.translatable("item.passivecharms.contingency_charm.tooltip_empty");

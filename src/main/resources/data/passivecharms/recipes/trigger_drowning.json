@@ -1,3 +1,20 @@
 {
-    "type": "minecraft:crafting_special_drowning_trigger"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#O#",
+        "O O",
+        "#O#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:gold_ingot"
+        },
+        "O": {
+            "tag": "c:coral_plants"
+        }
+    },
+    "result": {
+        "item": "passivecharms:contingency_charm_trigger_drowning",
+        "count": 1
+    }
 }

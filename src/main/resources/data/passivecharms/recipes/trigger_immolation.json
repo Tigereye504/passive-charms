@@ -1,3 +1,20 @@
 {
-    "type": "minecraft:crafting_special_immolation_trigger"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#O#",
+        "O O",
+        "#O#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:gold_ingot"
+        },
+        "O": {
+            "item": "minecraft:fire_charge"
+        }
+    },
+    "result": {
+        "item": "passivecharms:contingency_charm_trigger_immolation",
+        "count": 1
+    }
 }

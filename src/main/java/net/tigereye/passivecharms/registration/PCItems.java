@@ -7,7 +7,10 @@ import net.tigereye.passivecharms.PassiveCharms;
 import net.tigereye.passivecharms.items.ContingencyCharm;
 import net.tigereye.passivecharms.items.IndustryCharm;
 import net.tigereye.passivecharms.items.MaintenanceCharm;
-import net.tigereye.passivecharms.items.contingency_reactors.*;
+import net.tigereye.passivecharms.items.contingency_reactors.PotionReactor;
+import net.tigereye.passivecharms.items.contingency_reactors.PurityReactor;
+import net.tigereye.passivecharms.items.contingency_reactors.Warp;
+import net.tigereye.passivecharms.items.contingency_reactors.deprecated.*;
 import net.tigereye.passivecharms.items.contingency_triggers.*;
 
 import java.util.ArrayList;
@@ -19,46 +22,52 @@ public class PCItems {
     public static final Item INDUSTRY_CHARM = new IndustryCharm();
     public static final Item MAINTENANCE_CHARM = new MaintenanceCharm();
     public static final Item CONTINGENCY_CHARM = new ContingencyCharm();
-    public static final ContingencyCharmReaction FEATHERFALL_REACTOR = new Featherfall();
-    public static final ContingencyCharmReaction FLAMEWARD_REACTOR = new FlameWard();
-    public static final ContingencyCharmReaction GILLS_REACTOR = new Gills();
-    public static final ContingencyCharmReaction REGENERATION_REACTOR = new Regeneration();
-    public static final ContingencyCharmReaction RESTORATION_REACTOR = new Restoration();
-    public static final ContingencyCharmReaction WARP_REACTOR = new Warp();
-    public static final ContingencyCharmTrigger DROWNING_TRIGGER = new Drowning();
-    public static final ContingencyCharmTrigger FREEFALL_TRIGGER = new Freefall();
-    public static final ContingencyCharmTrigger IMMOLATION_TRIGGER = new Immolation();
-    public static final ContingencyCharmTrigger INJURY_TRIGGER = new Injury();
-    public static final ContingencyCharmTrigger LIGHT_INJURY_TRIGGER = new LightInjury();
-    public static final ContingencyCharmTrigger OBLIVION_TRIGGER = new Oblivion();
+    public static final Item POTION_REACTOR = new PotionReactor();
+    public static final Item FEATHERFALL_REACTOR = new FeatherfallReactor();
+    public static final Item FLAMEWARD_REACTOR = new FlameWardReactor();
+    public static final Item GILLS_REACTOR = new GillsReactor();
+    public static final Item PURITY_REACTOR = new PurityReactor();
+    public static final Item REGENERATION_REACTOR = new RegenerationReactor();
+    public static final Item RESTORATION_REACTOR = new RestorationReactor();
+    public static final Item WARP_REACTOR = new Warp();
+    public static final Item DROWNING_TRIGGER = new DrowningTrigger();
+    public static final Item FREEFALL_TRIGGER = new FreefallTrigger();
+    public static final Item IMMOLATION_TRIGGER = new ImmolationTrigger();
+    public static final Item INJURY_TRIGGER = new InjuryTrigger();
+    public static final Item LIGHT_INJURY_TRIGGER = new LightInjuryTrigger();
+    public static final Item OBLIVION_TRIGGER = new OblivionTrigger();
+    public static final Item STATUS_TRIGGER = new StatusTrigger();
     
     public static void register(){
-		Registry.register(Registry.ITEM, PassiveCharms.MODID + ":" + "maintenance_charm", MAINTENANCE_CHARM);
-        Registry.register(Registry.ITEM, PassiveCharms.MODID + ":" + "industry_charm", INDUSTRY_CHARM);
-		Registry.register(Registry.ITEM, PassiveCharms.MODID + ":" + "contingency_charm", CONTINGENCY_CHARM);
-        registerContingencyReactor(PassiveCharms.MODID + ":" + "contingency_charm_reaction_featherfall", FEATHERFALL_REACTOR);
-        registerContingencyReactor(PassiveCharms.MODID + ":" + "contingency_charm_reaction_flameward", FLAMEWARD_REACTOR);
-        registerContingencyReactor(PassiveCharms.MODID + ":" + "contingency_charm_reaction_gills", GILLS_REACTOR);
-        registerContingencyReactor(PassiveCharms.MODID + ":" + "contingency_charm_reaction_regeneration", REGENERATION_REACTOR);
-        registerContingencyReactor(PassiveCharms.MODID + ":" + "contingency_charm_reaction_restoration", RESTORATION_REACTOR);
-        registerContingencyReactor(PassiveCharms.MODID + ":" + "contingency_charm_reaction_warp", WARP_REACTOR);
-        registerContingencyTrigger(PassiveCharms.MODID + ":" + "contingency_charm_trigger_drowning", DROWNING_TRIGGER);
-        registerContingencyTrigger(PassiveCharms.MODID + ":" + "contingency_charm_trigger_freefall", FREEFALL_TRIGGER);
-        registerContingencyTrigger(PassiveCharms.MODID + ":" + "contingency_charm_trigger_immolation", IMMOLATION_TRIGGER);
-        registerContingencyTrigger(PassiveCharms.MODID + ":" + "contingency_charm_trigger_injury", INJURY_TRIGGER);
-        registerContingencyTrigger(PassiveCharms.MODID + ":" + "contingency_charm_trigger_light_injury", LIGHT_INJURY_TRIGGER);
-        registerContingencyTrigger(PassiveCharms.MODID + ":" + "contingency_charm_trigger_oblivion", OBLIVION_TRIGGER);
+		Registry.register(Registry.ITEM, new Identifier(PassiveCharms.MODID,"maintenance_charm"), MAINTENANCE_CHARM);
+        Registry.register(Registry.ITEM, new Identifier(PassiveCharms.MODID + ":" + "industry_charm"), INDUSTRY_CHARM);
+		Registry.register(Registry.ITEM, new Identifier(PassiveCharms.MODID + ":" + "contingency_charm"), CONTINGENCY_CHARM);
+        registerContingencyReactor("potion", POTION_REACTOR);
+        registerContingencyReactor("featherfall", FEATHERFALL_REACTOR);     //deprecated, but needs left in at least for now
+        registerContingencyReactor("flameward", FLAMEWARD_REACTOR);         //deprecated, but needs left in at least for now
+        registerContingencyReactor("gills", GILLS_REACTOR);                 //deprecated, but needs left in at least for now
+        registerContingencyReactor("regeneration", REGENERATION_REACTOR);   //deprecated, but needs left in at least for now
+        registerContingencyReactor("restoration", RESTORATION_REACTOR);     //deprecated, but needs left in at least for now
+        registerContingencyReactor("purity", PURITY_REACTOR);
+        registerContingencyReactor("warp", WARP_REACTOR);
+        registerContingencyTrigger("drowning", DROWNING_TRIGGER);
+        registerContingencyTrigger("freefall", FREEFALL_TRIGGER);
+        registerContingencyTrigger("immolation", IMMOLATION_TRIGGER);
+        registerContingencyTrigger("injury", INJURY_TRIGGER);
+        registerContingencyTrigger("light_injury", LIGHT_INJURY_TRIGGER);
+        registerContingencyTrigger("oblivion", OBLIVION_TRIGGER);
+        registerContingencyTrigger("status", STATUS_TRIGGER);
 
     }
 
-    public static void registerContingencyReactor(String name,ContingencyCharmReaction reactor){
-        Identifier id = new Identifier(name);
+    public static void registerContingencyReactor(String name,Item reactor){
+        Identifier id = new Identifier(PassiveCharms.MODID,"contingency_charm_reaction_"+name);
         CONTINGENCY_CHARM_REACTORS.add(id);
-        Registry.register(Registry.ITEM, name, reactor);
+        Registry.register(Registry.ITEM, id, reactor);
     }
-    public static void registerContingencyTrigger(String name,ContingencyCharmTrigger trigger){
-        Identifier id = new Identifier(name);
+    public static void registerContingencyTrigger(String name,Item trigger){
+        Identifier id = new Identifier(PassiveCharms.MODID,"contingency_charm_trigger_"+name);
         CONTINGENCY_CHARM_TRIGGERS.add(id);
-        Registry.register(Registry.ITEM, name, trigger);
+        Registry.register(Registry.ITEM, id, trigger);
     }
 }

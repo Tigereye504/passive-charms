@@ -1,6 +1,7 @@
 package net.tigereye.passivecharms.util;
 
 import net.minecraft.item.ItemStack;
+
 import java.util.function.BiFunction;
 
 public class InventoryUtil {
@@ -10,7 +11,6 @@ public class InventoryUtil {
     }
 
     public static int findTargetableInventoryItemStack(InventoryTickContext context, BiFunction<InventoryTickContext,Integer,Boolean> condition, int start) {
-        ItemStack invItem;
         for (int i = 0; i < context.inventory.size(); i++) {
             if(condition.apply(context,(start + i) % context.inventory.size())){
                 return (start + i) % context.inventory.size();

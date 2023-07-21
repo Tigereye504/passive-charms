@@ -26,7 +26,6 @@ import net.tigereye.passivecharms.util.ModelUtil;
 import org.apache.commons.io.Charsets;
 import org.jetbrains.annotations.Nullable;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -47,24 +46,30 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
 
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<net.minecraft.util.math.random.Random> randomSupplier, RenderContext context) {
-        String trigger;
-        String reactor;
+        String triggerString;
+        String reactorString;
+        ItemStack trigger;
+        ItemStack reactor;
         try {
-            trigger = Registry.ITEM.getId(ContingencyCharm.loadTriggerFromNBT(stack).getItem()).toString();
-            reactor = Registry.ITEM.getId(ContingencyCharm.loadReactionFromNBT(stack).getItem()).toString();
+            trigger = ContingencyCharm.loadTriggerFromNBT(stack);
+            reactor = ContingencyCharm.loadReactionFromNBT(stack);
+            triggerString = Registry.ITEM.getId(trigger.getItem()).toString();
+            reactorString = Registry.ITEM.getId(reactor.getItem()).toString();
         }
         catch(NullPointerException e){
-            trigger = Registry.ITEM.getId(PCItems.INJURY_TRIGGER).toString();
-            reactor = Registry.ITEM.getId(PCItems.RESTORATION_REACTOR).toString();
+            trigger = PCItems.INJURY_TRIGGER.getDefaultStack();
+            reactor = PCItems.RESTORATION_REACTOR.getDefaultStack();
+            triggerString = Registry.ITEM.getId(PCItems.INJURY_TRIGGER).toString();
+            reactorString = Registry.ITEM.getId(PCItems.RESTORATION_REACTOR).toString();
         }
-        if(TRIGGER_MODELS.containsKey(trigger)) {
-            TRIGGER_MODELS.get(trigger).emitItemQuads(null,null,context);
+        if(TRIGGER_MODELS.containsKey(triggerString)) {
+            TRIGGER_MODELS.get(triggerString).emitItemQuads(trigger,null,context);
         }
         else {
             PassiveCharms.LOGGER.error("Failed to model trigger.");
         }
-        if(REACTOR_MODELS.containsKey(reactor)) {
-            REACTOR_MODELS.get(reactor).emitItemQuads(null,null,context);
+        if(REACTOR_MODELS.containsKey(reactorString)) {
+            REACTOR_MODELS.get(reactorString).emitItemQuads(reactor,null,context);
         }
         else {
             PassiveCharms.LOGGER.error("Failed to model reactor.");

@@ -1,20 +1,20 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
+        " # ",
         "#O#",
-        "O O",
-        "#O#"
+        " # "
     ],
     "key": {
         "#": {
             "item": "minecraft:gold_ingot"
         },
         "O": {
-            "item": "minecraft:phantom_membrane"
+            "item": "minecraft:milk_bucket"
         }
     },
     "result": {
-        "item": "passivecharms:contingency_charm_trigger_freefall",
+        "item": "passivecharms:contingency_charm_reaction_purity",
         "count": 1
     }
 }

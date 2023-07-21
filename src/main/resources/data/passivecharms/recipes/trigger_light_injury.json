@@ -1,3 +1,20 @@
 {
-    "type": "minecraft:crafting_special_light_injury_trigger"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#O#",
+        "O O",
+        "#O#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:gold_ingot"
+        },
+        "O": {
+            "item": "minecraft:bone"
+        }
+    },
+    "result": {
+        "item": "passivecharms:contingency_charm_trigger_light_injury",
+        "count": 1
+    }
 }

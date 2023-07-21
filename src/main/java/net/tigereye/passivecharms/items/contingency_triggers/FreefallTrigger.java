@@ -6,14 +6,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class Freefall extends ContingencyCharmTrigger{
-
-    private static float CRITICAL_HEALTH = 2f;
-    public Freefall(){
+public class FreefallTrigger extends Item implements ContingencyCharmTrigger{
+    public FreefallTrigger(){
         super(new Settings().maxCount(1).group(ItemGroup.MISC));
     }
 

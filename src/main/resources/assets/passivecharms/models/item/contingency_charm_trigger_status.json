@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "passivecharms:item/contingency_charm_trigger_status",
+        "layer1": "passivecharms:item/contingency_charm_trigger_status_overlay"
+    }
+}

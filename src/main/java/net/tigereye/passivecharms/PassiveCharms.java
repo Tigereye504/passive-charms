@@ -1,10 +1,6 @@
 package net.tigereye.passivecharms;
 
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
-import net.fabricmc.fabric.impl.client.model.ModelLoadingRegistryImpl;
-import net.tigereye.passivecharms.models.ItemModelProvider;
 import net.tigereye.passivecharms.registration.PCItems;
 import net.tigereye.passivecharms.registration.PCRecipes;
 import org.apache.logging.log4j.LogManager;

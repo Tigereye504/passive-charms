@@ -12,8 +12,6 @@ import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.PassiveCharms;
-import net.tigereye.passivecharms.util.InventoryTickContext;
-import net.tigereye.passivecharms.util.InventoryUtil;
 
 import java.util.Iterator;
 import java.util.List;
