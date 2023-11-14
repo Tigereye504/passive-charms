@@ -12,6 +12,7 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.registration.PCItems;
 import net.tigereye.passivecharms.registration.PCRecipes;
@@ -22,8 +23,8 @@ import java.util.List;
 public class PotionReactorRecipe extends SpecialCraftingRecipe {
 
     private static final int DURATION_DIVISOR = 4;
-    public PotionReactorRecipe(CraftingRecipeCategory craftingRecipeCategory) {
-        super(craftingRecipeCategory);
+    public PotionReactorRecipe(Identifier id, CraftingRecipeCategory craftingRecipeCategory) {
+        super(id, craftingRecipeCategory);
     }
 
     public boolean matches(RecipeInputInventory craftingInventory, World world) {

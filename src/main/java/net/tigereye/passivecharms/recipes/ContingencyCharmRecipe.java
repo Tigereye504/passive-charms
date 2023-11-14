@@ -6,6 +6,7 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.ContingencyCharm;
 import net.tigereye.passivecharms.items.contingency_reactors.ContingencyCharmReaction;
@@ -14,9 +15,8 @@ import net.tigereye.passivecharms.registration.PCItems;
 import net.tigereye.passivecharms.registration.PCRecipes;
 
 public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
-
-    public ContingencyCharmRecipe(CraftingRecipeCategory craftingRecipeCategory) {
-        super(craftingRecipeCategory);
+    public ContingencyCharmRecipe(Identifier id, CraftingRecipeCategory craftingRecipeCategory) {
+        super(id, craftingRecipeCategory);
     }
 
     public boolean matches(RecipeInputInventory inv, World world) {
@@ -85,5 +85,5 @@ public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
     }
 
 
-    
+
 }
