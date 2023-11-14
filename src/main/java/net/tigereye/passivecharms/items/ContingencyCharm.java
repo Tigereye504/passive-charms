@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
@@ -24,7 +23,7 @@ public class ContingencyCharm extends Item{
     private static final String REACTOR_ITEM_KEY = "ReactionItem";
 
 	public ContingencyCharm() {
-		super(new Item.Settings().maxCount(1).group(ItemGroup.TOOLS).maxDamage(DURABILITY));
+		super(new Item.Settings().maxCount(1).maxDamage(DURABILITY));
     }
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {

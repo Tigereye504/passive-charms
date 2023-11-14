@@ -4,16 +4,14 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.DamageUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class FreefallTrigger extends Item implements ContingencyCharmTrigger{
     public FreefallTrigger(){
-        super(new Settings().maxCount(1).group(ItemGroup.MISC));
+        super(new Settings().maxCount(1));
     }
 
     //The freefall trigger actives if the entity has fallen so far that impact would be lethal to it
@@ -41,7 +39,7 @@ public class FreefallTrigger extends Item implements ContingencyCharmTrigger{
             factor = Math.max((5-(entity.getStatusEffect(StatusEffects.RESISTANCE).getAmplifier() + 1))/5,0);
             dmg *= factor;
         }
-        factor = EnchantmentHelper.getProtectionAmount(entity.getArmorItems(), DamageSource.FALL);
+        factor = EnchantmentHelper.getProtectionAmount(entity.getArmorItems(), entity.getDamageSources().fall());
         if (factor > 0) {
             dmg = DamageUtil.getInflictedDamage(dmg, factor);
         }

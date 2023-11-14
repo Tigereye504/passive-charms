@@ -1,8 +1,11 @@
 package net.tigereye.passivecharms.registration;
 
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.tigereye.passivecharms.PassiveCharms;
 import net.tigereye.passivecharms.items.ContingencyCharm;
 import net.tigereye.passivecharms.items.IndustryCharm;
@@ -39,9 +42,9 @@ public class PCItems {
     public static final Item STATUS_TRIGGER = new StatusTrigger();
     
     public static void register(){
-		Registry.register(Registry.ITEM, new Identifier(PassiveCharms.MODID,"maintenance_charm"), MAINTENANCE_CHARM);
-        Registry.register(Registry.ITEM, new Identifier(PassiveCharms.MODID + ":" + "industry_charm"), INDUSTRY_CHARM);
-		Registry.register(Registry.ITEM, new Identifier(PassiveCharms.MODID + ":" + "contingency_charm"), CONTINGENCY_CHARM);
+		registerItem("maintenance_charm", MAINTENANCE_CHARM);
+        registerItem("industry_charm", INDUSTRY_CHARM);
+		registerItem("contingency_charm", CONTINGENCY_CHARM);
         registerContingencyReactor("potion", POTION_REACTOR);
         registerContingencyReactor("featherfall", FEATHERFALL_REACTOR);     //deprecated, but needs left in at least for now
         registerContingencyReactor("flameward", FLAMEWARD_REACTOR);         //deprecated, but needs left in at least for now
@@ -58,16 +61,45 @@ public class PCItems {
         registerContingencyTrigger("oblivion", OBLIVION_TRIGGER);
         registerContingencyTrigger("status", STATUS_TRIGGER);
 
+        registerItemGroups();
     }
 
     public static void registerContingencyReactor(String name,Item reactor){
         Identifier id = new Identifier(PassiveCharms.MODID,"contingency_charm_reaction_"+name);
         CONTINGENCY_CHARM_REACTORS.add(id);
-        Registry.register(Registry.ITEM, id, reactor);
+        registerItem("contingency_charm_reaction_"+name, reactor);
     }
     public static void registerContingencyTrigger(String name,Item trigger){
         Identifier id = new Identifier(PassiveCharms.MODID,"contingency_charm_trigger_"+name);
         CONTINGENCY_CHARM_TRIGGERS.add(id);
-        Registry.register(Registry.ITEM, id, trigger);
+        registerItem("contingency_charm_trigger_"+name, trigger);
+    }
+
+    private static void registerItem(String name, Item item) {
+        Registry.register(Registries.ITEM, PassiveCharms.MODID + ":" + name, item);
+    }
+
+    private static void registerItemGroups(){
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
+            entries.add(INDUSTRY_CHARM);
+            entries.add(MAINTENANCE_CHARM);
+            entries.add(CONTINGENCY_CHARM);
+        });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+            entries.add(FEATHERFALL_REACTOR);
+            entries.add(FLAMEWARD_REACTOR);
+            entries.add(GILLS_REACTOR);
+            entries.add(POTION_REACTOR);
+            entries.add(PURITY_REACTOR);
+            entries.add(REGENERATION_REACTOR);
+            entries.add(RESTORATION_REACTOR);
+            entries.add(DROWNING_TRIGGER);
+            entries.add(FREEFALL_TRIGGER);
+            entries.add(IMMOLATION_TRIGGER);
+            entries.add(INJURY_TRIGGER);
+            entries.add(LIGHT_INJURY_TRIGGER);
+            entries.add(OBLIVION_TRIGGER);
+            entries.add(STATUS_TRIGGER);
+        });
     }
 }

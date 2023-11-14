@@ -5,8 +5,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -25,7 +25,7 @@ public class IndustryCharm extends Item {
     public static final String LEFTOVER_TICKS_KEY = "leftoverTicks";
 
     public IndustryCharm() {
-        super(new Item.Settings().maxCount(1).group(ItemGroup.TOOLS).maxDamage(MAXIMUM_SMELTS));
+        super(new Item.Settings().maxCount(1).maxDamage(MAXIMUM_SMELTS));
         //FuelRegistry.INSTANCE.get(Items.COAL);
     }
 
@@ -50,18 +50,18 @@ public class IndustryCharm extends Item {
                         }
                         if(!skip) {
                             dummyInventory.setStack(0, invItem);
-                            List<SmeltingRecipe> recipes = entity.world.getRecipeManager().listAllOfType(RecipeType.SMELTING);
-                            for (SmeltingRecipe recipe :
+                            List<RecipeEntry<SmeltingRecipe>> recipes = entity.getWorld().getRecipeManager().listAllOfType(RecipeType.SMELTING);
+                            for (RecipeEntry<SmeltingRecipe> recipe :
                                     recipes) {
-                                if (recipe.matches(dummyInventory, world)) {
-                                    int cost = (recipe.getCookTime() + FUEL_TICKS_PER_DURABILITY - 1) / FUEL_TICKS_PER_DURABILITY; //ceiling-divide formula for integers
+                                if (recipe.value().matches(dummyInventory, world)) {
+                                    int cost = (recipe.value().getCookingTime() + FUEL_TICKS_PER_DURABILITY - 1) / FUEL_TICKS_PER_DURABILITY; //ceiling-divide formula for integers
                                     if (stack.getDamage() < (stack.getMaxDamage() - cost)) {
-                                        ItemStack output = recipe.getOutput().copy();
+                                        ItemStack output = recipe.value().getResult(world.getRegistryManager()).copy();
                                         if (inventory.insertStack(output)) {
                                             PassiveCharms.LOGGER.debug("Smelting in Slot " + slot + "\n");
                                             invItem.decrement(1);
                                             stack.damage(cost, ((ServerPlayerEntity) entity).getRandom(), ((ServerPlayerEntity) entity));
-                                            stack.getNbt().putInt("lastSmelt", checkSlot);
+                                            stack.getOrCreateNbt().putInt("lastSmelt", checkSlot);
                                             inventory.markDirty();
                                             return;
                                         }
@@ -71,8 +71,6 @@ public class IndustryCharm extends Item {
                         }
                     }
                 }
-            }
-            else {
             }
         }
     }

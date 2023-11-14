@@ -12,12 +12,12 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.resource.Resource;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
 import net.tigereye.passivecharms.PassiveCharms;
 import net.tigereye.passivecharms.items.ContingencyCharm;
@@ -53,23 +53,23 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
         try {
             trigger = ContingencyCharm.loadTriggerFromNBT(stack);
             reactor = ContingencyCharm.loadReactionFromNBT(stack);
-            triggerString = Registry.ITEM.getId(trigger.getItem()).toString();
-            reactorString = Registry.ITEM.getId(reactor.getItem()).toString();
+            triggerString = Registries.ITEM.getId(trigger.getItem()).toString();
+            reactorString = Registries.ITEM.getId(reactor.getItem()).toString();
         }
         catch(NullPointerException e){
             trigger = PCItems.INJURY_TRIGGER.getDefaultStack();
             reactor = PCItems.RESTORATION_REACTOR.getDefaultStack();
-            triggerString = Registry.ITEM.getId(PCItems.INJURY_TRIGGER).toString();
-            reactorString = Registry.ITEM.getId(PCItems.RESTORATION_REACTOR).toString();
+            triggerString = Registries.ITEM.getId(PCItems.INJURY_TRIGGER).toString();
+            reactorString = Registries.ITEM.getId(PCItems.RESTORATION_REACTOR).toString();
         }
         if(TRIGGER_MODELS.containsKey(triggerString)) {
-            TRIGGER_MODELS.get(triggerString).emitItemQuads(trigger,null,context);
+            TRIGGER_MODELS.get(triggerString).emitItemQuads(trigger,randomSupplier,context);
         }
         else {
             PassiveCharms.LOGGER.error("Failed to model trigger.");
         }
         if(REACTOR_MODELS.containsKey(reactorString)) {
-            REACTOR_MODELS.get(reactorString).emitItemQuads(reactor,null,context);
+            REACTOR_MODELS.get(reactorString).emitItemQuads(reactor,randomSupplier,context);
         }
         else {
             PassiveCharms.LOGGER.error("Failed to model reactor.");
@@ -79,7 +79,7 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
     public static ModelTransformation loadTransformFromJson(Identifier location) {
         try {
             return JsonUnbakedModel.deserialize(getReaderForResource(location)).getTransformations();
-        } catch (IOException exception) {
+        } catch (Exception exception) {
             PassiveCharms.LOGGER.warn("Can't load resource " + location);
             exception.printStackTrace();
             return null;
@@ -101,15 +101,15 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
 
     @Override
     public @Nullable
-    BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+    BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
         if (TRIGGER_MODELS.isEmpty()) {
             for (Identifier id : PCItems.CONTINGENCY_CHARM_TRIGGERS) {
-                TRIGGER_MODELS.put(id.toString(), (FabricBakedModel) loader.bake(ModelUtil.inventoryModelID(id), ModelRotation.X0_Y0));
+                TRIGGER_MODELS.put(id.toString(), baker.bake(ModelUtil.inventoryModelID(id), ModelRotation.X0_Y0));
             }
         }
         if (REACTOR_MODELS.isEmpty()) {
             for (Identifier id : PCItems.CONTINGENCY_CHARM_REACTORS) {
-                REACTOR_MODELS.put(id.toString(), (FabricBakedModel) loader.bake(ModelUtil.inventoryModelID(id), ModelRotation.X0_Y0));
+                REACTOR_MODELS.put(id.toString(), baker.bake(ModelUtil.inventoryModelID(id), ModelRotation.X0_Y0));
             }
         }
         return this;
@@ -121,10 +121,9 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
     }
 
     @Override
-    public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<com.mojang.datafixers.util.Pair<String, String>> unresolvedTextureReferences) {
-        return Collections.emptyList();
-    }
+    public void setParents(Function<Identifier, UnbakedModel> modelLoader) {
 
+    }
 
     @Override
     public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<net.minecraft.util.math.random.Random> randomSupplier, RenderContext context) {}
@@ -162,7 +161,7 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
 
     @Override
     public ModelTransformation getTransformation() {
-        String model = modelIdentifier.getNamespace() + ":" + modelIdentifier.getPath();
+        //String model = modelIdentifier.getNamespace() + ":" + modelIdentifier.getPath();
         //if (ItemRegistry.MODELS.containsKey(model)) {
         //    String json = ItemRegistry.MODELS.get(model);
         //    return loadTransformFromJsonString(json);

@@ -3,7 +3,6 @@ package net.tigereye.passivecharms.items;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -22,7 +21,7 @@ public class MaintenanceCharm extends Item{
     private static final int USES_PER_RECOVER = 1;
 
 	public MaintenanceCharm() {
-		super(new Item.Settings().maxCount(1).group(ItemGroup.TOOLS).maxDamage(REPAIRS_BETWEEN_RESETS));
+		super(new Item.Settings().maxCount(1).maxDamage(REPAIRS_BETWEEN_RESETS));
 	}
     
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {

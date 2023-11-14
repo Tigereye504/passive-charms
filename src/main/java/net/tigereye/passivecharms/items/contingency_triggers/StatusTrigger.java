@@ -5,7 +5,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class StatusTrigger extends Item implements ContingencyCharmTrigger{
     public StatusTrigger(){
-        super(new Settings().maxCount(1).group(ItemGroup.MISC));
+        super(new Settings().maxCount(1));
     }
 
     @Override

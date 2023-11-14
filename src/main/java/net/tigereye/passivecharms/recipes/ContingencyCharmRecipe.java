@@ -1,10 +1,11 @@
 package net.tigereye.passivecharms.recipes;
 
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.util.Identifier;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.ContingencyCharm;
 import net.tigereye.passivecharms.items.contingency_reactors.ContingencyCharmReaction;
@@ -14,11 +15,11 @@ import net.tigereye.passivecharms.registration.PCRecipes;
 
 public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
 
-    public ContingencyCharmRecipe(Identifier id) {
-        super(id);
+    public ContingencyCharmRecipe(CraftingRecipeCategory craftingRecipeCategory) {
+        super(craftingRecipeCategory);
     }
 
-    public boolean matches(CraftingInventory inv, World world) {
+    public boolean matches(RecipeInputInventory inv, World world) {
         boolean foundTrigger = false;
         boolean foundReactor = false;
         for(int i = 0; i < inv.size(); ++i) {
@@ -44,7 +45,7 @@ public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
         return (foundReactor&&foundTrigger);
     }
 
-    public ItemStack craft(CraftingInventory inv) {
+    public ItemStack craft(RecipeInputInventory inv, DynamicRegistryManager registryManager) {
         ItemStack trigger = null;
         ItemStack reactor = null;
         for(int i = 0; i < inv.size(); ++i) {

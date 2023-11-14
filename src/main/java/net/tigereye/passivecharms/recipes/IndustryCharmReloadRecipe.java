@@ -1,13 +1,14 @@
 package net.tigereye.passivecharms.recipes;
 
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.util.Identifier;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.IndustryCharm;
 import net.tigereye.passivecharms.registration.PCItems;
@@ -15,11 +16,11 @@ import net.tigereye.passivecharms.registration.PCRecipes;
 
 public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
 
-    public IndustryCharmReloadRecipe(Identifier id) {
-        super(id);
+    public IndustryCharmReloadRecipe(CraftingRecipeCategory craftingRecipeCategory) {
+        super(craftingRecipeCategory);
     }
 
-    public boolean matches(CraftingInventory craftingInventory, World world) {
+    public boolean matches(RecipeInputInventory craftingInventory, World world) {
         if (craftingInventory.getWidth() >= 2 && craftingInventory.getHeight() >= 2) {
             boolean foundCharm = false;
             for(int i = 0; i < craftingInventory.getWidth(); ++i) {
@@ -51,7 +52,7 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
         }
     }
 
-    public ItemStack craft(CraftingInventory craftingInventory) {
+    public ItemStack craft(RecipeInputInventory craftingInventory, DynamicRegistryManager registryManager) {
         ItemStack charm = ItemStack.EMPTY;
         int fuelGain = 0;
         boolean foundCharm = false;

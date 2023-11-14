@@ -4,14 +4,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ImmolationTrigger extends Item implements ContingencyCharmTrigger{
 
     public ImmolationTrigger(){
-        super(new Item.Settings().maxCount(1).group(ItemGroup.MISC));
+        super(new Item.Settings().maxCount(1));
     }
 
     public boolean TriggerConditionMet(ItemStack stack, World world, Entity entity, int slot, boolean selected, ItemStack trigger)

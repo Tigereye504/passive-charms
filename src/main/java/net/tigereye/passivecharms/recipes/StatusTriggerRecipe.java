@@ -2,7 +2,7 @@ package net.tigereye.passivecharms.recipes;
 
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -11,7 +11,8 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.util.Identifier;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.registration.PCItems;
 import net.tigereye.passivecharms.registration.PCRecipes;
@@ -23,11 +24,11 @@ import java.util.Set;
 public class StatusTriggerRecipe extends SpecialCraftingRecipe {
 
 
-    public StatusTriggerRecipe(Identifier id) {
-        super(id);
+    public StatusTriggerRecipe(CraftingRecipeCategory craftingRecipeCategory) {
+        super(craftingRecipeCategory);
     }
 
-    public boolean matches(CraftingInventory craftingInventory, World world) {
+    public boolean matches(RecipeInputInventory craftingInventory, World world) {
         if (craftingInventory.getWidth() == 3 && craftingInventory.getHeight() == 3) {
             for(int i = 0; i < craftingInventory.getWidth(); ++i) {
                 for(int j = 0; j < craftingInventory.getHeight(); ++j) {
@@ -72,7 +73,7 @@ public class StatusTriggerRecipe extends SpecialCraftingRecipe {
         }
     }
 
-    public ItemStack craft(CraftingInventory inv) {
+    public ItemStack craft(RecipeInputInventory inv, DynamicRegistryManager registryManager) {
         ItemStack output = new ItemStack(PCItems.STATUS_TRIGGER);
         Set<StatusEffect> effects = new HashSet<>();
         addPotionEffectsToSet(inv.getStack(1),effects);
