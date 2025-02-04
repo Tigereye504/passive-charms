@@ -1,5 +1,6 @@
 package net.tigereye.passivecharms.items.contingency_triggers;
 
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -31,9 +32,9 @@ public class StatusTrigger extends Item implements ContingencyCharmTrigger{
     }
 
     public boolean TriggerConditionMet(ItemStack stack, World world, Entity entity, int slot, boolean selected, ItemStack trigger) {
-        List<StatusEffectInstance> effects = getStatusEffects(trigger);
+        List<StatusEffectInstance> triggeringEffectList = getStatusEffects(trigger);
         if (entity instanceof LivingEntity lEntity){
-            for (StatusEffectInstance effectInstance : effects) {
+            for (StatusEffectInstance effectInstance : triggeringEffectList) {
                 StatusEffect effect = effectInstance.getEffectType();
                 if(lEntity.hasStatusEffect(effect)){return true;}
             }
@@ -58,6 +59,22 @@ public class StatusTrigger extends Item implements ContingencyCharmTrigger{
                 }
             }
             return list;
+        }
+    }
+
+    public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        tooltip.add(Text.translatable("item.passivecharms.contingency_charm_trigger_status.tooltip.description"));
+        appendNestedTooltip(itemStack,world,tooltip,tooltipContext,1);
+    }
+
+    public void appendNestedTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext, int depth){
+        List<StatusEffectInstance> statusEffects = getStatusEffects(itemStack);
+
+        if(statusEffects.size() > 1) {
+            for (StatusEffectInstance effect : statusEffects) {
+                tooltip.add(Text.literal(" ".repeat(depth)).append(
+                        effect.getEffectType().getName()));
+            }
         }
     }
 

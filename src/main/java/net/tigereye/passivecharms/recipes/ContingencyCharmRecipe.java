@@ -69,6 +69,7 @@ public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
         }
         if(reactor != null && trigger != null){
             ItemStack output = new ItemStack(PCItems.CONTINGENCY_CHARM);
+            output.setDamage(reactor.getDamage());
             ContingencyCharm.saveContingencyToNBT(output, trigger, reactor);
             return output;
         }
@@ -76,7 +77,7 @@ public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
     }
 
     public boolean fits(int width, int height) {
-        return (width >= 2 && height >= 2);
+        return (width * height >= 2);
     }
 
     public RecipeSerializer<?> getSerializer() {

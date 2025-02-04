@@ -1,5 +1,6 @@
 package net.tigereye.passivecharms.items.contingency_reactors;
 
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -20,7 +21,7 @@ public class PotionReactor extends Item implements ContingencyCharmReaction{
     private static final int COST = ContingencyCharm.DURABILITY/4;
 
     public PotionReactor(){
-        super(new Settings().maxCount(1).group(ItemGroup.MISC));
+        super(new Settings().maxCount(1).group(ItemGroup.MISC).maxDamage(ContingencyCharm.DURABILITY));
     }
 
     @Override
@@ -73,6 +74,10 @@ public class PotionReactor extends Item implements ContingencyCharmReaction{
             }
             return list;
         }
+    }
+
+    public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        tooltip.add(Text.translatable("item.passivecharms.contingency_charm_reaction_potion.tooltip.description"));
     }
 
     public static int getColor(ItemStack stack, int tintIndex) {

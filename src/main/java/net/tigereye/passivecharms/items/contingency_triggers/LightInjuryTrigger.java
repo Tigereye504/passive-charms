@@ -1,11 +1,15 @@
 package net.tigereye.passivecharms.items.contingency_triggers;
 
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class LightInjuryTrigger extends Item implements ContingencyCharmTrigger{
 
@@ -20,5 +24,9 @@ public class LightInjuryTrigger extends Item implements ContingencyCharmTrigger{
             return (((LivingEntity)entity).getHealth() <= ((LivingEntity)entity).getMaxHealth()*LIGHT_INJURY_THRESHOLD);
         }
         return false;
+    }
+
+    public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        tooltip.add(Text.translatable("item.passivecharms.contingency_charm_trigger_light_injury.tooltip.description"));
     }
 }
