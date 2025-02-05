@@ -23,7 +23,6 @@ import java.util.List;
 public class ContingencyCharm extends Item{
     
     public static final int DURABILITY = 120;
-    private static final String TRIGGERED_KEY = "Triggered";
     private static final String TRIGGER_ITEM_KEY = "TriggerItem";
     private static final String REACTOR_ITEM_KEY = "ReactionItem";
 
@@ -34,19 +33,14 @@ public class ContingencyCharm extends Item{
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if(!world.isClient()){
-            ItemStack trigger = loadTriggerFromNBT(stack);
-            ItemStack reaction = loadReactionFromNBT(stack);
-            NbtCompound nbt = stack.getOrCreateNbt();
-            if(trigger != null && reaction != null){
-                if(((ContingencyCharmTrigger)trigger.getItem()).TriggerConditionMet(stack, world, entity, slot, selected, trigger)){
-                    if(!nbt.contains(TRIGGERED_KEY)) {
-                        if (((ContingencyCharmReaction) reaction.getItem()).React(stack, world, entity, slot, selected, reaction)) {
-                            nbt.putBoolean(TRIGGERED_KEY, true);
-                        }
+            ItemStack triggerStack = loadTriggerFromNBT(stack);
+            ItemStack reactionStack = loadReactionFromNBT(stack);
+            if(triggerStack != null && reactionStack != null){
+                if(triggerStack.getItem() instanceof ContingencyCharmTrigger trigger
+                && reactionStack.getItem() instanceof ContingencyCharmReaction reaction){
+                    if(trigger.TriggerConditionMet(stack, world, entity, slot, selected, triggerStack)){
+                        reaction.React(stack, world, entity, slot, selected, reactionStack);
                     }
-                }
-                else {
-                    nbt.remove(TRIGGERED_KEY);
                 }
             }
         }

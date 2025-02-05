@@ -7,6 +7,7 @@ import net.tigereye.passivecharms.PassiveCharms;
 import net.tigereye.passivecharms.items.ContingencyCharm;
 import net.tigereye.passivecharms.items.IndustryCharm;
 import net.tigereye.passivecharms.items.MaintenanceCharm;
+import net.tigereye.passivecharms.items.contingency_reactors.LightReactor;
 import net.tigereye.passivecharms.items.contingency_reactors.PotionReactor;
 import net.tigereye.passivecharms.items.contingency_reactors.PurityReactor;
 import net.tigereye.passivecharms.items.contingency_reactors.Warp;
@@ -26,10 +27,12 @@ public class PCItems {
     public static final Item FEATHERFALL_REACTOR = new FeatherfallReactor();
     public static final Item FLAMEWARD_REACTOR = new FlameWardReactor();
     public static final Item GILLS_REACTOR = new GillsReactor();
+    public static final Item LIGHT_REACTOR = new LightReactor();
     public static final Item PURITY_REACTOR = new PurityReactor();
     public static final Item REGENERATION_REACTOR = new RegenerationReactor();
     public static final Item RESTORATION_REACTOR = new RestorationReactor();
     public static final Item WARP_REACTOR = new Warp();
+    public static final Item DARKNESS_TRIGGER = new DarknessTrigger();
     public static final Item DROWNING_TRIGGER = new DrowningTrigger();
     public static final Item FREEFALL_TRIGGER = new FreefallTrigger();
     public static final Item IMMOLATION_TRIGGER = new ImmolationTrigger();
@@ -48,8 +51,10 @@ public class PCItems {
         registerContingencyReactor("gills", GILLS_REACTOR);                 //deprecated, but needs left in at least for now
         registerContingencyReactor("regeneration", REGENERATION_REACTOR);   //deprecated, but needs left in at least for now
         registerContingencyReactor("restoration", RESTORATION_REACTOR);     //deprecated, but needs left in at least for now
+        registerContingencyReactor("light", LIGHT_REACTOR);
         registerContingencyReactor("purity", PURITY_REACTOR);
         registerContingencyReactor("warp", WARP_REACTOR);
+        registerContingencyTrigger("darkness", DARKNESS_TRIGGER);
         registerContingencyTrigger("drowning", DROWNING_TRIGGER);
         registerContingencyTrigger("freefall", FREEFALL_TRIGGER);
         registerContingencyTrigger("immolation", IMMOLATION_TRIGGER);

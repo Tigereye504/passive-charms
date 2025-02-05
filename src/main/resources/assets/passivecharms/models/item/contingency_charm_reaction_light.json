@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "passivecharms:item/contingency_charm_reaction_light"
+    }
+}

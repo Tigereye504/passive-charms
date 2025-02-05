@@ -12,11 +12,12 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
+import net.tigereye.passivecharms.items.TooltipNester;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StatusTrigger extends Item implements ContingencyCharmTrigger{
+public class StatusTrigger extends Item implements ContingencyCharmTrigger, TooltipNester {
     public StatusTrigger(){
         super(new Settings().maxCount(1).group(ItemGroup.MISC));
     }
