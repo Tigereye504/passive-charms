@@ -20,6 +20,9 @@ public class PCRecipes {
     */
     public static SpecialRecipeSerializer<ContingencyCharmRecipe> CONTINGENCY_CHARM;
     public static SpecialRecipeSerializer<DarknessTriggerRecipe> DARKNESS_TRIGGER;
+    public static SpecialRecipeSerializer<NotTriggerRecipe> NOT_TRIGGER;
+    public static SpecialRecipeSerializer<AndTriggerRecipe> AND_TRIGGER;
+    public static SpecialRecipeSerializer<OrTriggerRecipe> OR_TRIGGER;
     public static SpecialRecipeSerializer<PotionReactorRecipe> POTION_REACTOR;
     public static SpecialRecipeSerializer<StatusTriggerRecipe> STATUS_TRIGGER;
     public static SpecialRecipeSerializer<IndustryCharmRecipe> INDUSTRY_CHARM;
@@ -42,6 +45,9 @@ public class PCRecipes {
         
         CONTINGENCY_CHARM = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_contingency_charm", new SpecialRecipeSerializer<>(ContingencyCharmRecipe::new));
         DARKNESS_TRIGGER = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_darkness_trigger", new SpecialRecipeSerializer<>(DarknessTriggerRecipe::new));
+        NOT_TRIGGER = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_not_trigger", new SpecialRecipeSerializer<>(NotTriggerRecipe::new));
+        AND_TRIGGER = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_and_trigger", new SpecialRecipeSerializer<>(AndTriggerRecipe::new));
+        OR_TRIGGER = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_or_trigger", new SpecialRecipeSerializer<>(OrTriggerRecipe::new));
         POTION_REACTOR = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_potion_reactor", new SpecialRecipeSerializer<>(PotionReactorRecipe::new));
         STATUS_TRIGGER = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_status_trigger", new SpecialRecipeSerializer<>(StatusTriggerRecipe::new));
         INDUSTRY_CHARM = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_industry_charm", new SpecialRecipeSerializer<>(IndustryCharmRecipe::new));

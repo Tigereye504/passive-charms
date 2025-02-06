@@ -18,7 +18,7 @@ public class ImmolationTrigger extends Item implements ContingencyCharmTrigger{
         super(new Item.Settings().maxCount(1).group(ItemGroup.MISC));
     }
 
-    public boolean TriggerConditionMet(ItemStack stack, World world, Entity entity, int slot, boolean selected, ItemStack trigger)
+    public boolean TriggerConditionMet(World world, Entity entity, ItemStack trigger)
     {
         boolean canGetFireResistance = entity instanceof LivingEntity && (!((LivingEntity) entity).hasStatusEffect(StatusEffects.FIRE_RESISTANCE));
         return (entity.isOnFire() && canGetFireResistance);

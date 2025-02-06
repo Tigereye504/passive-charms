@@ -38,6 +38,9 @@ public class PCItems {
     public static final Item IMMOLATION_TRIGGER = new ImmolationTrigger();
     public static final Item INJURY_TRIGGER = new InjuryTrigger();
     public static final Item LIGHT_INJURY_TRIGGER = new LightInjuryTrigger();
+    public static final Item NOT_TRIGGER = new NotTrigger();
+    public static final Item AND_TRIGGER = new AndTrigger();
+    public static final Item OR_TRIGGER = new OrTrigger();
     public static final Item OBLIVION_TRIGGER = new OblivionTrigger();
     public static final Item STATUS_TRIGGER = new StatusTrigger();
     
@@ -60,6 +63,9 @@ public class PCItems {
         registerContingencyTrigger("immolation", IMMOLATION_TRIGGER);
         registerContingencyTrigger("injury", INJURY_TRIGGER);
         registerContingencyTrigger("light_injury", LIGHT_INJURY_TRIGGER);
+        registerContingencyTrigger("not", NOT_TRIGGER);
+        registerContingencyTrigger("and", AND_TRIGGER);
+        registerContingencyTrigger("or", OR_TRIGGER);
         registerContingencyTrigger("oblivion", OBLIVION_TRIGGER);
         registerContingencyTrigger("status", STATUS_TRIGGER);
 

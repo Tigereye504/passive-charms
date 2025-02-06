@@ -16,7 +16,7 @@ public class DrowningTrigger extends Item implements ContingencyCharmTrigger{
         super(new Settings().maxCount(1).group(ItemGroup.MISC));
     }
 
-    public boolean TriggerConditionMet(ItemStack stack, World world, Entity entity, int slot, boolean selected, ItemStack trigger)
+    public boolean TriggerConditionMet(World world, Entity entity, ItemStack trigger)
     {
         return (entity.getAir() <= 0);
     }

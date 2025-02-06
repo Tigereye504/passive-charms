@@ -32,7 +32,7 @@ public class StatusTrigger extends Item implements ContingencyCharmTrigger, Tool
         return Text.literal(Text.translatable("item.passivecharms.contingency_charm.tooltip_empty").getString()+" "+super.getName(stack).getString());
     }
 
-    public boolean TriggerConditionMet(ItemStack stack, World world, Entity entity, int slot, boolean selected, ItemStack trigger) {
+    public boolean TriggerConditionMet(World world, Entity entity, ItemStack trigger) {
         List<StatusEffectInstance> triggeringEffectList = getStatusEffects(trigger);
         if (entity instanceof LivingEntity lEntity){
             for (StatusEffectInstance effectInstance : triggeringEffectList) {

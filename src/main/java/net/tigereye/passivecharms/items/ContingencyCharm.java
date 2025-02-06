@@ -16,7 +16,6 @@ import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.contingency_reactors.ContingencyCharmReaction;
 import net.tigereye.passivecharms.items.contingency_triggers.ContingencyCharmTrigger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,7 +37,7 @@ public class ContingencyCharm extends Item{
             if(triggerStack != null && reactionStack != null){
                 if(triggerStack.getItem() instanceof ContingencyCharmTrigger trigger
                 && reactionStack.getItem() instanceof ContingencyCharmReaction reaction){
-                    if(trigger.TriggerConditionMet(stack, world, entity, slot, selected, triggerStack)){
+                    if(trigger.TriggerConditionMet(world, entity, triggerStack)){
                         reaction.React(stack, world, entity, slot, selected, reactionStack);
                     }
                 }
@@ -97,45 +96,23 @@ public class ContingencyCharm extends Item{
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         ItemStack trigger = loadTriggerFromNBT(itemStack);
         ItemStack reaction = loadReactionFromNBT(itemStack);
-        Text triggerName;
-        List<Text> triggerTooltip = new ArrayList<>();
-        List<Text> reactionTooltip = new ArrayList<>();
-        Text reactionName;
-        if(trigger != null){
-            triggerName = trigger.getName();
-            Item triggerItem = trigger.getItem();
-            if(triggerItem instanceof TooltipNester tooltipNester){
-                tooltipNester.appendNestedTooltip(trigger,world,triggerTooltip,tooltipContext,1);
-            }
-            /*List<Text> triggerTooltipRaw = new ArrayList<>();
-            trigger.getItem().appendTooltip(trigger, world, triggerTooltipRaw, tooltipContext);
-            for(Text line : triggerTooltipRaw){
-                triggerTooltip.add(Text.literal(" ").append(line));
-            }*/
-        }
-        else{
-            triggerName = Text.translatable("item.passivecharms.contingency_charm.tooltip_empty");
-        }
-        if(reaction != null){
-            reactionName = reaction.getName();
-            Item reactionItem = reaction.getItem();
-            if(reactionItem instanceof TooltipNester tooltipNester){
-                tooltipNester.appendNestedTooltip(reaction,world,reactionTooltip,tooltipContext,1);
-            }
-            /*List<Text> reactionTooltipRaw = new ArrayList<>();
-            reaction.getItem().appendTooltip(reaction, world, reactionTooltipRaw, tooltipContext);
-            for(Text line : reactionTooltipRaw){
-                reactionTooltip.add(Text.literal(" ").append(line));
-            }*/
-        }
-        else{
-            reactionName = Text.translatable("item.passivecharms.contingency_charm.tooltip_empty");
-        }
-        tooltip.add(triggerName);
-        tooltip.addAll(triggerTooltip);
-        tooltip.add(reactionName);
-        tooltip.addAll(reactionTooltip);
+        appendComponentNameAndNestedTooltip(trigger,world,tooltip,tooltipContext,0);
+        appendComponentNameAndNestedTooltip(reaction,world,tooltip,tooltipContext,0);
         tooltip.add(Text.translatable("item.passivecharms.contingency_charm.tooltip_instructions"));
     }
 
+    public static void appendComponentNameAndNestedTooltip (ItemStack component, World world, List<Text> tooltip, TooltipContext context, int depth){
+        if(component != null){
+            tooltip.add(Text.literal(" ".repeat(depth)).append(
+                    component.getName()));
+            Item triggerItem = component.getItem();
+            if(triggerItem instanceof TooltipNester tooltipNester){
+                tooltipNester.appendNestedTooltip(component,world,tooltip,context,depth+1);
+            }
+        }
+        else{
+            tooltip.add(Text.literal(" ".repeat(depth)).append(
+                    Text.translatable("item.passivecharms.contingency_charm.tooltip_empty")));
+        }
+    }
 }

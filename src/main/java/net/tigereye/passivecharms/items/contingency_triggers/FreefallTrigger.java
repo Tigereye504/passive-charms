@@ -21,7 +21,7 @@ public class FreefallTrigger extends Item implements ContingencyCharmTrigger{
     }
 
     //The freefall trigger actives if the entity has fallen so far that impact would be lethal to it
-    public boolean TriggerConditionMet(ItemStack stack, World world, Entity entity, int slot, boolean selected, ItemStack trigger)
+    public boolean TriggerConditionMet(World world, Entity entity, ItemStack trigger)
     {
         float expectedFallDamage;
         float lethalFallDamage;

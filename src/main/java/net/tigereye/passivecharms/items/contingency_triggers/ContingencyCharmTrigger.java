@@ -5,5 +5,5 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public interface ContingencyCharmTrigger{
-    boolean TriggerConditionMet(ItemStack stack, World world, Entity entity, int slot, boolean selected, ItemStack trigger);
+    boolean TriggerConditionMet(World world, Entity entity, ItemStack trigger);
 }

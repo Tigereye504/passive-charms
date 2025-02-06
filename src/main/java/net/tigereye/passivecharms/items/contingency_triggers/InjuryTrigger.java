@@ -18,7 +18,7 @@ public class InjuryTrigger extends Item implements ContingencyCharmTrigger{
         super(new Settings().maxCount(1).group(ItemGroup.MISC));
     }
 
-    public boolean TriggerConditionMet(ItemStack stack, World world, Entity entity, int slot, boolean selected, ItemStack trigger)
+    public boolean TriggerConditionMet(World world, Entity entity, ItemStack trigger)
     {
         if(entity instanceof LivingEntity) {
             return (((LivingEntity)entity).getHealth() <= ((LivingEntity)entity).getMaxHealth()*CRITICAL_HEALTH_THRESHOLD);
