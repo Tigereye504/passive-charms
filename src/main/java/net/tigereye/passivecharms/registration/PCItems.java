@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registry;
 import net.tigereye.passivecharms.PassiveCharms;
@@ -48,7 +49,7 @@ public class PCItems {
     public static final Item STATUS_TRIGGER = new StatusTrigger();
 
     public static void register(){
-		registerItem("maintenance_charm", MAINTENANCE_CHARM, ItemGroups.TOOLS);
+	 	registerItem("maintenance_charm", MAINTENANCE_CHARM, ItemGroups.TOOLS);
         registerItem("industry_charm", INDUSTRY_CHARM, ItemGroups.TOOLS);
         registerItem("contingency_charm", CONTINGENCY_CHARM, ItemGroups.TOOLS);
         registerContingencyReactor("potion", POTION_REACTOR);
@@ -81,10 +82,10 @@ public class PCItems {
         Identifier id = new Identifier(PassiveCharms.MODID,"contingency_charm_trigger_"+name);
         registerItem(id,trigger,ItemGroups.TOOLS);
     }
-    public static void registerItem(String name, Item item, ItemGroup itemGroup){
+    public static void registerItem(String name, Item item, RegistryKey<ItemGroup> itemGroup){
         registerItem(new Identifier(PassiveCharms.MODID,name),item,itemGroup);
     }
-    public static void registerItem(Identifier id, Item item, ItemGroup itemGroup){
+    public static void registerItem(Identifier id, Item item, RegistryKey<ItemGroup> itemGroup){
         Registry.register(Registries.ITEM, id, item);
         ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(item));
     }

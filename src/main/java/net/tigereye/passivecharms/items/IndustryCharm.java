@@ -49,7 +49,7 @@ public class IndustryCharm extends Item {
                         }
                         if(!skip) {
                             dummyInventory.setStack(0, invItem);
-                            List<SmeltingRecipe> recipes = entity.world.getRecipeManager().listAllOfType(RecipeType.SMELTING);
+                            List<SmeltingRecipe> recipes = entity.getWorld().getRecipeManager().listAllOfType(RecipeType.SMELTING);
                             for (SmeltingRecipe recipe :
                                     recipes) {
                                 if (recipe.matches(dummyInventory, world)) {

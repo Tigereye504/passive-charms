@@ -1,6 +1,6 @@
 package net.tigereye.passivecharms.recipes;
 
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
@@ -20,7 +20,7 @@ public class NotTriggerRecipe extends SpecialCraftingRecipe {
         super(id, craftingRecipeCategory);
     }
 
-    public boolean matches(CraftingInventory inv, World world) {
+    public boolean matches(RecipeInputInventory inv, World world) {
         boolean foundTrigger = false;
         boolean foundRedstoneTorch = false;
         for(int i = 0; i < inv.size(); ++i) {
@@ -46,7 +46,7 @@ public class NotTriggerRecipe extends SpecialCraftingRecipe {
         return (foundRedstoneTorch&&foundTrigger);
     }
 
-    public ItemStack craft(CraftingInventory inv, DynamicRegistryManager registryManager) {
+    public ItemStack craft(RecipeInputInventory inv, DynamicRegistryManager registryManager) {
         ItemStack trigger = null;
         boolean foundRedstoneTorch = false;
         for(int i = 0; i < inv.size(); ++i) {

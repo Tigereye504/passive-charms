@@ -1,7 +1,7 @@
 package net.tigereye.passivecharms.recipes;
 
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -21,7 +21,7 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
         super(id, craftingRecipeCategory);
     }
 
-    public boolean matches(CraftingInventory craftingInventory, World world) {
+    public boolean matches(RecipeInputInventory craftingInventory, World world) {
         if (craftingInventory.getWidth() >= 2 && craftingInventory.getHeight() >= 2) {
             boolean foundCharm = false;
             for(int i = 0; i < craftingInventory.getWidth(); ++i) {
@@ -53,7 +53,7 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
         }
     }
 
-    public ItemStack craft(CraftingInventory craftingInventory, DynamicRegistryManager registryManager) {
+    public ItemStack craft(RecipeInputInventory craftingInventory, DynamicRegistryManager registryManager) {
         ItemStack charm = ItemStack.EMPTY;
         int fuelGain = 0;
         boolean foundCharm = false;

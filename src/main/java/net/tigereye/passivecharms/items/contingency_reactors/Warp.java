@@ -59,7 +59,7 @@ public class Warp extends Item implements ContingencyCharmReaction, TooltipNeste
                     x + ", "+
                     y + ", "+
                     z + " ");
-            if(dim != entity.world.getRegistryKey()){
+            if(dim != entity.getEntityWorld().getRegistryKey()){
                 PassiveCharms.LOGGER.log(Level.DEBUG,"This involves hopping dimensions");
             }
             if (lEntity instanceof ServerPlayerEntity spEntity) {

@@ -1,6 +1,6 @@
 package net.tigereye.passivecharms.recipes;
 
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -19,7 +19,7 @@ public class IndustryCharmRecipe extends SpecialCraftingRecipe {
         super(id, craftingRecipeCategory);
     }
 
-    public boolean matches(CraftingInventory craftingInventory, World world) {
+    public boolean matches(RecipeInputInventory craftingInventory, World world) {
         if (craftingInventory.getWidth() == 3 && craftingInventory.getHeight() == 3) {
             for(int i = 0; i < craftingInventory.getWidth(); ++i) {
                 for(int j = 0; j < craftingInventory.getHeight(); ++j) {
@@ -45,7 +45,7 @@ public class IndustryCharmRecipe extends SpecialCraftingRecipe {
         }
     }
 
-    public ItemStack craft(CraftingInventory inv, DynamicRegistryManager registryManager) {
+    public ItemStack craft(RecipeInputInventory inv, DynamicRegistryManager registryManager) {
         ItemStack output = new ItemStack(PCItems.INDUSTRY_CHARM);
         output.setDamage(output.getMaxDamage());
         return output;
