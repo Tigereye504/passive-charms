@@ -3,21 +3,20 @@ package net.tigereye.passivecharms.items.contingency_triggers;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.TooltipNester;
+import net.tigereye.passivecharms.registration.PCItems;
 
 import java.util.List;
 
 public class DarknessTrigger extends Item implements ContingencyCharmTrigger, TooltipNester {
 
     public DarknessTrigger(){
-        super(new Settings().maxCount(1).group(ItemGroup.MISC));
-    }
+        super(PCItems.TRIGGER_SETTINGS);    }
 
     public boolean TriggerConditionMet(World world, Entity entity, ItemStack trigger)
     {

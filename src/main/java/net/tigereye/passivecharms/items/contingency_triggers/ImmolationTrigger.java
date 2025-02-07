@@ -5,18 +5,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
+import net.tigereye.passivecharms.registration.PCItems;
 
 import java.util.List;
 
 public class ImmolationTrigger extends Item implements ContingencyCharmTrigger{
 
     public ImmolationTrigger(){
-        super(new Item.Settings().maxCount(1).group(ItemGroup.MISC));
-    }
+        super(PCItems.TRIGGER_SETTINGS);    }
 
     public boolean TriggerConditionMet(World world, Entity entity, ItemStack trigger)
     {

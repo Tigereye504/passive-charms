@@ -11,6 +11,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.registration.PCItems;
@@ -23,8 +24,8 @@ import java.util.Set;
 public class StatusTriggerRecipe extends SpecialCraftingRecipe {
 
 
-    public StatusTriggerRecipe(Identifier id) {
-        super(id);
+    public StatusTriggerRecipe(Identifier id, CraftingRecipeCategory craftingRecipeCategory) {
+        super(id, craftingRecipeCategory);
     }
 
     public boolean matches(CraftingInventory craftingInventory, World world) {

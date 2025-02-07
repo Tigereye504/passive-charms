@@ -4,6 +4,7 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.ContingencyCharm;
@@ -14,8 +15,8 @@ import net.tigereye.passivecharms.registration.PCRecipes;
 
 public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
 
-    public ContingencyCharmRecipe(Identifier id) {
-        super(id);
+    public ContingencyCharmRecipe(Identifier id, CraftingRecipeCategory craftingRecipeCategory) {
+        super(id, craftingRecipeCategory);
     }
 
     public boolean matches(CraftingInventory inv, World world) {

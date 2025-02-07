@@ -4,7 +4,6 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -14,6 +13,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.ContingencyCharm;
 import net.tigereye.passivecharms.items.TooltipNester;
+import net.tigereye.passivecharms.registration.PCItems;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -24,8 +24,7 @@ public class OrTrigger extends Item implements ContingencyCharmTrigger, TooltipN
     private static final String TRIGGER_COMPONENT2_KEY = "TriggerComponent2";
 
     public OrTrigger(){
-        super(new Settings().maxCount(1).group(ItemGroup.MISC));
-    }
+        super(PCItems.TRIGGER_SETTINGS);    }
 
     public boolean TriggerConditionMet(World world, Entity entity, ItemStack trigger)
     {

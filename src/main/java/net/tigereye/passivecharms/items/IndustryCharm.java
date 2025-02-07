@@ -5,7 +5,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
@@ -25,7 +24,7 @@ public class IndustryCharm extends Item {
     public static final String LEFTOVER_TICKS_KEY = "leftoverTicks";
 
     public IndustryCharm() {
-        super(new Item.Settings().maxCount(1).group(ItemGroup.TOOLS).maxDamage(MAXIMUM_SMELTS));
+        super(new Item.Settings().maxCount(1).maxDamage(MAXIMUM_SMELTS));
         //FuelRegistry.INSTANCE.get(Items.COAL);
     }
 
@@ -61,7 +60,7 @@ public class IndustryCharm extends Item {
                                             PassiveCharms.LOGGER.debug("Smelting in Slot " + slot + "\n");
                                             invItem.decrement(1);
                                             stack.damage(cost, ((ServerPlayerEntity) entity).getRandom(), ((ServerPlayerEntity) entity));
-                                            stack.getNbt().putInt("lastSmelt", checkSlot);
+                                            stack.getOrCreateNbt().putInt("lastSmelt", checkSlot);
                                             inventory.markDirty();
                                             return;
                                         }
@@ -71,8 +70,6 @@ public class IndustryCharm extends Item {
                         }
                     }
                 }
-            }
-            else {
             }
         }
     }

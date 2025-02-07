@@ -10,6 +10,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.registration.PCItems;
@@ -21,8 +22,8 @@ import java.util.List;
 public class PotionReactorRecipe extends SpecialCraftingRecipe {
 
     private static final int DURATION_DIVISOR = 4;
-    public PotionReactorRecipe(Identifier id) {
-        super(id);
+    public PotionReactorRecipe(Identifier id, CraftingRecipeCategory craftingRecipeCategory) {
+        super(id, craftingRecipeCategory);
     }
 
     public boolean matches(CraftingInventory craftingInventory, World world) {

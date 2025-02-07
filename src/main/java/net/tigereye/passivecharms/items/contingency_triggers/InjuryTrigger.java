@@ -4,10 +4,10 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
+import net.tigereye.passivecharms.registration.PCItems;
 
 import java.util.List;
 
@@ -15,8 +15,7 @@ public class InjuryTrigger extends Item implements ContingencyCharmTrigger{
 
     private static final float CRITICAL_HEALTH_THRESHOLD = 0.2f;
     public InjuryTrigger(){
-        super(new Settings().maxCount(1).group(ItemGroup.MISC));
-    }
+        super(PCItems.TRIGGER_SETTINGS);    }
 
     public boolean TriggerConditionMet(World world, Entity entity, ItemStack trigger)
     {

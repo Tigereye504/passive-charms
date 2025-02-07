@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.contingency_triggers.ContingencyCharmTrigger;
@@ -14,8 +15,8 @@ import net.tigereye.passivecharms.registration.PCRecipes;
 
 public class NotTriggerRecipe extends SpecialCraftingRecipe {
 
-    public NotTriggerRecipe(Identifier id) {
-        super(id);
+    public NotTriggerRecipe(Identifier id, CraftingRecipeCategory craftingRecipeCategory) {
+        super(id, craftingRecipeCategory);
     }
 
     public boolean matches(CraftingInventory inv, World world) {

@@ -8,17 +8,16 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
+import net.tigereye.passivecharms.registration.PCItems;
 
 import java.util.List;
 
 public class FreefallTrigger extends Item implements ContingencyCharmTrigger{
     public FreefallTrigger(){
-        super(new Settings().maxCount(1).group(ItemGroup.MISC));
-    }
+        super(PCItems.TRIGGER_SETTINGS);    }
 
     //The freefall trigger actives if the entity has fallen so far that impact would be lethal to it
     public boolean TriggerConditionMet(World world, Entity entity, ItemStack trigger)

@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.contingency_triggers.AndTrigger;
@@ -14,8 +15,8 @@ import net.tigereye.passivecharms.registration.PCRecipes;
 
 public class AndTriggerRecipe extends SpecialCraftingRecipe {
 
-    public AndTriggerRecipe(Identifier id) {
-        super(id);
+    public AndTriggerRecipe(Identifier id, CraftingRecipeCategory craftingRecipeCategory) {
+        super(id,craftingRecipeCategory);
     }
 
     public boolean matches(CraftingInventory inv, World world) {

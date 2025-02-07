@@ -8,6 +8,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.registration.PCItems;
@@ -16,8 +17,8 @@ import net.tigereye.passivecharms.registration.PCRecipes;
 public class DarknessTriggerRecipe extends SpecialCraftingRecipe {
 
 
-    public DarknessTriggerRecipe(Identifier id) {
-        super(id);
+    public DarknessTriggerRecipe(Identifier id, CraftingRecipeCategory craftingRecipeCategory) {
+        super(id, craftingRecipeCategory);
     }
 
     public boolean matches(CraftingInventory craftingInventory, World world) {

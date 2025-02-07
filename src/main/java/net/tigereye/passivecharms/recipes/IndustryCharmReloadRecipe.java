@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.IndustryCharm;
@@ -15,8 +16,8 @@ import net.tigereye.passivecharms.registration.PCRecipes;
 
 public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
 
-    public IndustryCharmReloadRecipe(Identifier id) {
-        super(id);
+    public IndustryCharmReloadRecipe(Identifier id, CraftingRecipeCategory craftingRecipeCategory) {
+        super(id, craftingRecipeCategory);
     }
 
     public boolean matches(CraftingInventory craftingInventory, World world) {

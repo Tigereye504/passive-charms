@@ -5,7 +5,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
@@ -16,7 +15,7 @@ public class FlameWardReactor extends Item implements ContingencyCharmReaction {
     private static final int COST = ContingencyCharm.DURABILITY/4;
     private static final int DURATION = 600;
     public FlameWardReactor(){
-        super(new Item.Settings().maxCount(1).group(ItemGroup.MISC));
+        super(new Item.Settings().maxCount(1));
     }
 
     public boolean React(ItemStack stack, World world, Entity entity, int slot, boolean selected, ItemStack Reactant){

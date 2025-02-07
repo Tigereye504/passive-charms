@@ -1,7 +1,8 @@
 package net.tigereye.passivecharms.registration;
 
 import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.tigereye.passivecharms.recipes.*;
 
 public class PCRecipes {
@@ -43,15 +44,15 @@ public class PCRecipes {
         LIGHT_INJURY_TRIGGER = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_light_injury_trigger", new SpecialRecipeSerializer<>(LightInjuryTriggerRecipe::new));
         */
         
-        CONTINGENCY_CHARM = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_contingency_charm", new SpecialRecipeSerializer<>(ContingencyCharmRecipe::new));
-        DARKNESS_TRIGGER = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_darkness_trigger", new SpecialRecipeSerializer<>(DarknessTriggerRecipe::new));
-        NOT_TRIGGER = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_not_trigger", new SpecialRecipeSerializer<>(NotTriggerRecipe::new));
-        AND_TRIGGER = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_and_trigger", new SpecialRecipeSerializer<>(AndTriggerRecipe::new));
-        OR_TRIGGER = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_or_trigger", new SpecialRecipeSerializer<>(OrTriggerRecipe::new));
-        POTION_REACTOR = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_potion_reactor", new SpecialRecipeSerializer<>(PotionReactorRecipe::new));
-        STATUS_TRIGGER = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_status_trigger", new SpecialRecipeSerializer<>(StatusTriggerRecipe::new));
-        INDUSTRY_CHARM = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_industry_charm", new SpecialRecipeSerializer<>(IndustryCharmRecipe::new));
-        INDUSTRY_CHARM_RELOAD = Registry.register(Registry.RECIPE_SERIALIZER, "crafting_special_industry_charm_reload", new SpecialRecipeSerializer<>(IndustryCharmReloadRecipe::new));
+        CONTINGENCY_CHARM = Registry.register(Registries.RECIPE_SERIALIZER, "crafting_special_contingency_charm", new SpecialRecipeSerializer<>(ContingencyCharmRecipe::new));
+        DARKNESS_TRIGGER = Registry.register(Registries.RECIPE_SERIALIZER, "crafting_special_darkness_trigger", new SpecialRecipeSerializer<>(DarknessTriggerRecipe::new));
+        NOT_TRIGGER = Registry.register(Registries.RECIPE_SERIALIZER, "crafting_special_not_trigger", new SpecialRecipeSerializer<>(NotTriggerRecipe::new));
+        AND_TRIGGER = Registry.register(Registries.RECIPE_SERIALIZER, "crafting_special_and_trigger", new SpecialRecipeSerializer<>(AndTriggerRecipe::new));
+        OR_TRIGGER = Registry.register(Registries.RECIPE_SERIALIZER, "crafting_special_or_trigger", new SpecialRecipeSerializer<>(OrTriggerRecipe::new));
+        POTION_REACTOR = Registry.register(Registries.RECIPE_SERIALIZER, "crafting_special_potion_reactor", new SpecialRecipeSerializer<>(PotionReactorRecipe::new));
+        STATUS_TRIGGER = Registry.register(Registries.RECIPE_SERIALIZER, "crafting_special_status_trigger", new SpecialRecipeSerializer<>(StatusTriggerRecipe::new));
+        INDUSTRY_CHARM = Registry.register(Registries.RECIPE_SERIALIZER, "crafting_special_industry_charm", new SpecialRecipeSerializer<>(IndustryCharmRecipe::new));
+        INDUSTRY_CHARM_RELOAD = Registry.register(Registries.RECIPE_SERIALIZER, "crafting_special_industry_charm_reload", new SpecialRecipeSerializer<>(IndustryCharmReloadRecipe::new));
 
     }
     

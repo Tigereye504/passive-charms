@@ -17,12 +17,10 @@ import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
 import net.tigereye.passivecharms.PassiveCharms;
 import net.tigereye.passivecharms.items.ContingencyCharm;
 import net.tigereye.passivecharms.registration.PCItems;
-import net.tigereye.passivecharms.util.ModelUtil;
 import org.apache.commons.io.Charsets;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,32 +44,26 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
 
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<net.minecraft.util.math.random.Random> randomSupplier, RenderContext context) {
-        String triggerString;
-        String reactorString;
         ItemStack trigger;
         ItemStack reactor;
         try {
             trigger = ContingencyCharm.loadTriggerFromNBT(stack);
             reactor = ContingencyCharm.loadReactionFromNBT(stack);
-            triggerString = Registry.ITEM.getId(trigger.getItem()).toString();
-            reactorString = Registry.ITEM.getId(reactor.getItem()).toString();
         }
         catch(NullPointerException e){
             trigger = PCItems.INJURY_TRIGGER.getDefaultStack();
             reactor = PCItems.RESTORATION_REACTOR.getDefaultStack();
-            triggerString = Registry.ITEM.getId(PCItems.INJURY_TRIGGER).toString();
-            reactorString = Registry.ITEM.getId(PCItems.RESTORATION_REACTOR).toString();
         }
-        if(TRIGGER_MODELS.containsKey(triggerString)) {
-            TRIGGER_MODELS.get(triggerString).emitItemQuads(trigger,null,context);
+        try {
+            ((FabricBakedModel) (MinecraftClient.getInstance().getItemRenderer().getModels().getModel(trigger))).emitItemQuads(trigger, randomSupplier, context);
         }
-        else {
+        catch(NullPointerException e){
             PassiveCharms.LOGGER.error("Failed to model trigger.");
         }
-        if(REACTOR_MODELS.containsKey(reactorString)) {
-            REACTOR_MODELS.get(reactorString).emitItemQuads(reactor,null,context);
+        try {
+            ((FabricBakedModel)(MinecraftClient.getInstance().getItemRenderer().getModels().getModel(reactor))).emitItemQuads(reactor,randomSupplier,context);
         }
-        else {
+        catch(NullPointerException e){
             PassiveCharms.LOGGER.error("Failed to model reactor.");
         }
     }
@@ -100,29 +92,18 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
     }
 
     @Override
-    public @Nullable
-    BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
-        if (TRIGGER_MODELS.isEmpty()) {
-            for (Identifier id : PCItems.CONTINGENCY_CHARM_TRIGGERS) {
-                TRIGGER_MODELS.put(id.toString(), (FabricBakedModel) loader.bake(ModelUtil.inventoryModelID(id), ModelRotation.X0_Y0));
-            }
-        }
-        if (REACTOR_MODELS.isEmpty()) {
-            for (Identifier id : PCItems.CONTINGENCY_CHARM_REACTORS) {
-                REACTOR_MODELS.put(id.toString(), (FabricBakedModel) loader.bake(ModelUtil.inventoryModelID(id), ModelRotation.X0_Y0));
-            }
-        }
-        return this;
-    }
-
-    @Override
     public Collection<Identifier> getModelDependencies() {
         return Collections.emptyList();
     }
 
     @Override
-    public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<com.mojang.datafixers.util.Pair<String, String>> unresolvedTextureReferences) {
-        return Collections.emptyList();
+    public void setParents(Function<Identifier, UnbakedModel> modelLoader) {
+
+    }
+
+    @Override
+    public @Nullable BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+        return this;
     }
 
 
