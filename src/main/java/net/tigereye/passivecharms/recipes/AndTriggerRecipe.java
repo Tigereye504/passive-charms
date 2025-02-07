@@ -6,6 +6,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.contingency_triggers.AndTrigger;
@@ -45,7 +46,7 @@ public class AndTriggerRecipe extends SpecialCraftingRecipe {
         return (foundComparator && (foundTriggers == 2));
     }
 
-    public ItemStack craft(CraftingInventory inv) {
+    public ItemStack craft(CraftingInventory inv, DynamicRegistryManager registryManager) {
         ItemStack trigger1 = null;
         ItemStack trigger2 = null;
         boolean foundComparator = false;

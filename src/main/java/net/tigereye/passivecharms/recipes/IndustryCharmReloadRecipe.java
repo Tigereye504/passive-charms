@@ -8,6 +8,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.IndustryCharm;
@@ -52,7 +53,7 @@ public class IndustryCharmReloadRecipe extends SpecialCraftingRecipe {
         }
     }
 
-    public ItemStack craft(CraftingInventory craftingInventory) {
+    public ItemStack craft(CraftingInventory craftingInventory, DynamicRegistryManager registryManager) {
         ItemStack charm = ItemStack.EMPTY;
         int fuelGain = 0;
         boolean foundCharm = false;

@@ -55,7 +55,7 @@ public class IndustryCharm extends Item {
                                 if (recipe.matches(dummyInventory, world)) {
                                     int cost = (recipe.getCookTime() + FUEL_TICKS_PER_DURABILITY - 1) / FUEL_TICKS_PER_DURABILITY; //ceiling-divide formula for integers
                                     if (stack.getDamage() < (stack.getMaxDamage() - cost)) {
-                                        ItemStack output = recipe.getOutput().copy();
+                                        ItemStack output = recipe.getOutput(world.getRegistryManager()).copy();
                                         if (inventory.insertStack(output)) {
                                             PassiveCharms.LOGGER.debug("Smelting in Slot " + slot + "\n");
                                             invItem.decrement(1);

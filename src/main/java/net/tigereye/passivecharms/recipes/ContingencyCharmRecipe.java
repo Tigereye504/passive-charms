@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.items.ContingencyCharm;
@@ -45,7 +46,7 @@ public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
         return (foundReactor&&foundTrigger);
     }
 
-    public ItemStack craft(CraftingInventory inv) {
+    public ItemStack craft(CraftingInventory inv, DynamicRegistryManager registryManager) {
         ItemStack trigger = null;
         ItemStack reactor = null;
         for(int i = 0; i < inv.size(); ++i) {

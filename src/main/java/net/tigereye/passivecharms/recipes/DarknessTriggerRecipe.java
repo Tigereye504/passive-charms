@@ -9,6 +9,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.passivecharms.registration.PCItems;
@@ -65,7 +66,7 @@ public class DarknessTriggerRecipe extends SpecialCraftingRecipe {
         }
     }
 
-    public ItemStack craft(CraftingInventory inv) {
+    public ItemStack craft(CraftingInventory inv, DynamicRegistryManager registryManager) {
         ItemStack output = new ItemStack(PCItems.DARKNESS_TRIGGER);
         int lightPermitted = 0;
         lightPermitted += getLightPermissiveness(inv.getStack(1));
