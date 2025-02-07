@@ -34,12 +34,9 @@ import java.util.function.Supplier;
 
 public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel, UnbakedModel {
 
-    private static final HashMap<String, FabricBakedModel> TRIGGER_MODELS = new HashMap<>();
-    private static final HashMap<String, FabricBakedModel> REACTOR_MODELS = new HashMap<>();
-    private final ModelIdentifier modelIdentifier;
 
-    public ContingencyCharmBakedModel(ModelIdentifier modelIdentifier) {
-        this.modelIdentifier = modelIdentifier;
+    public ContingencyCharmBakedModel() {
+
     }
 
     @Override
@@ -76,10 +73,6 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
             exception.printStackTrace();
             return null;
         }
-    }
-
-    public static ModelTransformation loadTransformFromJsonString(String json) {
-        return JsonUnbakedModel.deserialize(json).getTransformations();
     }
 
     public static Reader getReaderForResource(Identifier location) throws IOException {
@@ -143,11 +136,6 @@ public class ContingencyCharmBakedModel implements FabricBakedModel, BakedModel,
 
     @Override
     public ModelTransformation getTransformation() {
-        String model = modelIdentifier.getNamespace() + ":" + modelIdentifier.getPath();
-        //if (ItemRegistry.MODELS.containsKey(model)) {
-        //    String json = ItemRegistry.MODELS.get(model);
-        //    return loadTransformFromJsonString(json);
-        //}
         return loadTransformFromJson(new Identifier("minecraft:models/item/handheld"));
     }
 

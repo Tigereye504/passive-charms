@@ -16,7 +16,7 @@ public class ItemModelProvider implements ModelVariantProvider {
     public @Nullable UnbakedModel loadModelVariant(ModelIdentifier modelIdentifier, ModelProviderContext modelProviderContext) {
         if(modelIdentifier.getNamespace().equals(PassiveCharms.MODID)) {
             if (modelIdentifier.getPath().equals("contingency_charm")) {
-                return new ContingencyCharmBakedModel(modelIdentifier);
+                return new ContingencyCharmBakedModel();
             }
         }
         return null;
