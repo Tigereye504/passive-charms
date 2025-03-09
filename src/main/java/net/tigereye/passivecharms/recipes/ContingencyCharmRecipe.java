@@ -2,6 +2,7 @@ package net.tigereye.passivecharms.recipes;
 
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
@@ -72,6 +73,10 @@ public class ContingencyCharmRecipe extends SpecialCraftingRecipe {
         if(reactor != null && trigger != null){
             ItemStack output = new ItemStack(PCItems.CONTINGENCY_CHARM);
             output.setDamage(reactor.getDamage());
+            NbtList enchantments = reactor.getEnchantments();
+            if(!enchantments.isEmpty()) {
+                output.setSubNbt("Enchantments", enchantments);
+            }
             ContingencyCharm.saveContingencyToNBT(output, trigger, reactor);
             return output;
         }

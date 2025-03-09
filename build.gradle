@@ -25,6 +25,7 @@ dependencies {
     //Fabric api
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 }
@@ -35,6 +36,10 @@ processResources {
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version
 	}
+}
+
+repositories {
+	maven { url "https://maven.shedaniel.me/" }
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is

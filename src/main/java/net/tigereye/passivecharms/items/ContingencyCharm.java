@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -56,6 +57,10 @@ public class ContingencyCharm extends Item{
             if (reaction != null) {
                 reaction.setDamage(stack.getDamage());
                 user.getInventory().insertStack(reaction);
+                NbtList enchantments = stack.getEnchantments();
+                if(!enchantments.isEmpty()) {
+                    reaction.setSubNbt("Enchantments", enchantments);
+                }
             }
             stack.decrement(1);
             return TypedActionResult.consume(user.getStackInHand(hand));
